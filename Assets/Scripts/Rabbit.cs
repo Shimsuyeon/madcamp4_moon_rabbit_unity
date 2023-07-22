@@ -46,7 +46,8 @@ public class Rabbit : MonoBehaviour {
     // Star Cookie
     public GameObject[] starCookiePrefabs;
     GameObject[] starCookies;
-    bool[] starCookieIsSpawned;
+    int[] starCookieStatus;
+    // public GameObject[] starCookieEffects;
 
 
 
@@ -69,7 +70,7 @@ public class Rabbit : MonoBehaviour {
 
         // Star Cookie init
         starCookies = new GameObject[15];
-        starCookieIsSpawned = new bool[15];
+        starCookieStatus = new int[15];
 
         // Planet init
         PlanetInit();
@@ -107,14 +108,9 @@ public class Rabbit : MonoBehaviour {
         sliderBack.color = sliderColor;
 
         // Jump 
-        if (acc_y < -0.5f && !isJumping) {
+        if (acc_y < -0.5f && !isJumping && fill > 0.001f) {
             Jump();
         }
-        // if (isJumping && abs_f(transform.position.z) < 0.51) {
-        //     Debug.Log("Hit ground!!!");
-        //     isJumping = false;
-        //     isJumpingText.text = "0";
-        // }
 
         // Animation
         timer += Time.deltaTime;
@@ -139,7 +135,7 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Game Over
-        if (transform.position.z > 1000f) {
+        if (transform.position.z > 500f) {
             SceneManager.LoadScene("mainScene");
         }
 
@@ -156,11 +152,11 @@ public class Rabbit : MonoBehaviour {
         }
     }
 
-    private void OnCollisionTrigger(Collision collision) {
-        if (collision.gameObject.CompareTag("starCookie")) {
-            StarCookieCollision();
-        }
-    }
+    // private void OnCollisionTrigger(Collision collision) {
+    //     if (collision.gameObject.CompareTag("cookie")) {
+            
+    //     }
+    // }
 
     private void Jump() {
         if (!isJumping) {
@@ -172,6 +168,7 @@ public class Rabbit : MonoBehaviour {
             isJumping = true;
             isJumpingText.text = "1";
             Debug.Log("Jump!!!");
+            fill = 0;
         }
     }
 
@@ -217,23 +214,20 @@ public class Rabbit : MonoBehaviour {
             float y_offset = Random.Range(-4f, -1f);
             GameObject starCookiePrefab = Instantiate(starCookiePrefabs[rand], new Vector3(x_offset, baseY + y_offset, 0f), Quaternion.Euler(0f, 0f, 0f));
             starCookies[3*planetIdx + i] = starCookiePrefab;
-            starCookieIsSpawned[3*planetIdx + i] = true;
-        }        
+            starCookieStatus[3*planetIdx + i] = rand + 1;
+        }
     }
 
     void StarCookieMove() { // 배경 속도에 따라 이동하며, y좌표가 -5 이하면 삭제함
         for (int i = 0; i < 15; i++) {
-            if (starCookieIsSpawned[i]) {
+            if (starCookieStatus[i] > 0) {
                 starCookies[i].transform.position += new Vector3(0f, -Time.deltaTime * backgroundVelocity, 0f);
                 if (starCookies[i].transform.position.y < -5f) {
                     Destroy(starCookies[i]);
-                    starCookieIsSpawned[i] = false;
+                    starCookieStatus[i] = 0;
                 }
             }
         }
     }
 
-    void StarCookieCollision() {
-        
-    }
 }
