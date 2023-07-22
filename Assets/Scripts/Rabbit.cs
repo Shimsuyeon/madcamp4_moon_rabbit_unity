@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class acc : MonoBehaviour {
+public class Rabbit : MonoBehaviour {
 
     // Cube
-    public float speed;
+    public float x_speed;
     float acc_x;
     float acc_y;
     public Rigidbody rb;
-
 
     // UI
     public Slider slider;
@@ -36,6 +35,14 @@ public class acc : MonoBehaviour {
     private int currentIndex = 0;
     public Renderer rabbitRenderer;
 
+    // Planet Spawn & Move
+    public GameObject[] planetPrefabs;
+    // public int planetCnt = 5;
+    // public int planetIdx = 0;
+    public float backgroundVelocity = 2f;
+    public GameObject moon;
+    public GameObject[] planets;
+
 
     void Start() {
         rabbitRenderer.material = materials[currentIndex];
@@ -50,6 +57,9 @@ public class acc : MonoBehaviour {
         colorKeys[2].color = Color.red;
         colorKeys[2].time = 1f;
         grad.colorKeys = colorKeys;
+
+        // Planet init
+        PlanetInit();
     }
 
 
@@ -73,7 +83,7 @@ public class acc : MonoBehaviour {
 
         dir *= Time.deltaTime;
 
-        rb.velocity = new Vector3(dir.x*speed, 0, rb.velocity.z);
+        rb.velocity = new Vector3(dir.x*x_speed, 0, rb.velocity.z);
         
         // Update Slider
         fill += acc_y * Time.deltaTime * k;
@@ -105,6 +115,19 @@ public class acc : MonoBehaviour {
             currentIndex = (currentIndex + 1) % materials.Length;
             rabbitRenderer.material = materials[currentIndex];
         }
+
+        // Planet Move
+        if (isJumping) {
+            float delta = Time.deltaTime * backgroundVelocity;
+            for (int i = 0; i < 5; i++) {
+                planets[i].transform.position += new Vector3(0f, -delta, 0);
+            }
+            if (moon.transform.position.y >= -5f) {
+                moon.transform.position += new Vector3(0f, -delta, 0f);
+            }
+            PlanetSpawn();
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -118,9 +141,10 @@ public class acc : MonoBehaviour {
 
     private void Jump() {
         if (!isJumping) {
-            float jumpHight = 6 * fill;
-            float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHight);
-
+            float jumpHeight = 6 * fill;
+            // float jumpTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
+            
             rb.AddForce(new Vector3(0f, 0f, -jumpSpeed), ForceMode.VelocityChange);
             isJumping = true;
             Debug.Log("Jump!!!");
@@ -129,5 +153,34 @@ public class acc : MonoBehaviour {
 
     float abs_f(float x) {
         return (x > 0) ? x : -x;
+    }
+
+
+    // Planet Spawn & Move
+
+    // 처음 5개를 만들고
+    void PlanetInit() {
+        for (int i = 0; i < 5; i++) {
+            int rand = Random.Range(0, 10);
+
+            float x_offset = Random.Range(-2, 2);
+
+            GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, 5f * (i+1), 0f), Quaternion.Euler(90f, 0f, 0f));
+            planets[i] = planetPrefab;
+        }
+    }
+
+    // 하나가 지나갈 때마다, 그걸 없애고 새로 스폰함
+    void PlanetSpawn() {
+        for (int i = 0; i < 5; i++) {
+            if (planets[i].transform.position.y < -5f) {
+                Destroy(planets[i]);
+                int rand = Random.Range(0, 10);
+                float x_offset = Random.Range(-2, 2);
+                int currLast = (i == 0 ? 4 : i - 1);
+                GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, planets[currLast].transform.position.y + 5f, 0f), Quaternion.Euler(90f, 0f, 0f));
+                planets[i] = planetPrefab;
+            }
+        }
     }
 }
