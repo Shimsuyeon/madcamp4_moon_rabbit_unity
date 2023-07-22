@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MoonRabbit.unity
     guid: 90a830a60c498144d87c30154d2c9bc8
+  - enabled: 1
+    path: Assets/Scenes/loginScene.unity
+    guid: e273f9b5d72d0214cb7cbd5503b0fa15
   m_configObjects: {}
