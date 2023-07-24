@@ -14,7 +14,9 @@ public class LoginController : MonoBehaviour
     public TMP_InputField LoginPw;
     public Button LoginDone;
     public TextMeshProUGUI loginResultText;
+    public string status;
     public int[] cookies;
+    public int[] shop;
 
     // Start is called before the first frame update
     void Start()
@@ -34,14 +36,25 @@ public class LoginController : MonoBehaviour
         var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/login");
         // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/login");
         var req = new Protocols.Packets.req_Login();
+
+
         req.id = id;
         req.pw = password;
+
         var json = JsonConvert.SerializeObject(req);
+     
         StartCoroutine(LoginUser(url, json, (response) =>
         {
-            if (response == "success")
+            var res = JsonConvert.DeserializeObject<Protocols.Packets.req_Login>(response);
+            status = res.status;
+
+            if (status == "success")
             {
                 PlayerPrefs.SetString("id", id);
+                cookies = res.cookie;
+                shop = res.shop;
+                Debug.Log(cookies[0]);
+                Debug.Log(shop[0]);
                 GetCookieData(id);
                 SceneManager.LoadScene("mainScene");
             }
@@ -52,12 +65,13 @@ public class LoginController : MonoBehaviour
         }));
     }
 
-    void GetCookieData(string id) {
+    void GetCookieData(string id)
+    {
         var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie");
         // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie");
         var req = new Protocols.Packets.req_Login();
         req.id = id;
-        
+
         StartCoroutine(GetCookieById(url, JsonConvert.SerializeObject(req), (response) => {
             var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
             cookies = res.cookie;
@@ -80,18 +94,19 @@ public class LoginController : MonoBehaviour
         webRequest.downloadHandler = new DownloadHandlerBuffer();
         webRequest.SetRequestHeader("Content-Type", "application/json");
         yield return webRequest.SendWebRequest();
-    if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
-    {
-        Debug.Log("��Ʈ��ũ ȯ���� �����Ƽ� ����� �Ҽ� �����ϴ�.");
-    }
-    else
-    {
-        Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
-        callback(webRequest.downloadHandler.text);
-    }
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("��Ʈ��ũ ȯ���� �����Ƽ� ����� �Ҽ� �����ϴ�.");
+        }
+        else
+        {
+            Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
+            callback(webRequest.downloadHandler.text);
+        }
     }
 
-    public static IEnumerator GetCookieById(string url, string json, System.Action<string> callback) {
+    public static IEnumerator GetCookieById(string url, string json, System.Action<string> callback)
+    {
         var webRequest = new UnityWebRequest(url, "GET");
         var bodyRaw = Encoding.UTF8.GetBytes(json);
 
@@ -111,7 +126,8 @@ public class LoginController : MonoBehaviour
         }
     }
 
-    void delay() {
+    void delay()
+    {
 
     }
 }
