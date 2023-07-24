@@ -51,9 +51,35 @@ public class LoginController : MonoBehaviour
             if (status == "success")
             {
                 PlayerPrefs.SetString("id", id);
+                
                 cookies = res.cookie;
                 shop = res.shop;
-                Debug.Log(cookies[0]);
+               // PlayerPrefs.SetInt("cookie", cookies);
+                //PlayerPrefs.SetInt("shop", shop);
+                string strArr = "";
+                string strArr2 = "";
+                for (int i=0; i<cookies.Length; i++)
+                {
+                    strArr = strArr + cookies[i];
+                    if(i<cookies.Length - 1)
+                    {
+                        strArr = strArr + ",";
+                    }
+                }
+                for (int i = 0; i < shop.Length; i++)
+                {
+                    strArr2 = strArr2 + shop[i];
+                    if (i < shop.Length - 1)
+                    {
+                        strArr2 = strArr2 + ",";
+                    }
+                }
+                Debug.Log(strArr);
+                Debug.Log(strArr2);
+                PlayerPrefs.SetString("cookies", strArr);
+                PlayerPrefs.SetString("shop", strArr2);
+
+
                 Debug.Log(shop[0]);
                 GetCookieData(id);
                 SceneManager.LoadScene("mainScene");
