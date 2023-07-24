@@ -6,19 +6,19 @@ public class StarCookie : MonoBehaviour {
     public GameObject particlePrefab;
 
     void Start() {
-        
+        // Debug.Log("Star Cookie Hit");
     }
 
     void Update() {
         
     }
 
-    private void onTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             Debug.Log("Star Cookie Hit");
             // 파티클 스폰을 위한 코루틴 시작
-            // StartCoroutine(SpawnParticleCoroutine());
-            // Destroy(gameObject);
+            StartCoroutine(SpawnParticleCoroutine());
+            Destroy(gameObject);
         }
     }
 

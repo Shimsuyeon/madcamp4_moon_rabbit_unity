@@ -152,12 +152,6 @@ public class Rabbit : MonoBehaviour {
         }
     }
 
-    // private void OnCollisionTrigger(Collision collision) {
-    //     if (collision.gameObject.CompareTag("cookie")) {
-            
-    //     }
-    // }
-
     private void Jump() {
         if (!isJumping) {
             float jumpHeight = 6 * fill;
@@ -220,6 +214,10 @@ public class Rabbit : MonoBehaviour {
 
     void StarCookieMove() { // 배경 속도에 따라 이동하며, y좌표가 -5 이하면 삭제함
         for (int i = 0; i < 15; i++) {
+            if (starCookies[i] == null) {
+                starCookieStatus[i] = 0;
+                continue;
+            }
             if (starCookieStatus[i] > 0) {
                 starCookies[i].transform.position += new Vector3(0f, -Time.deltaTime * backgroundVelocity, 0f);
                 if (starCookies[i].transform.position.y < -5f) {
