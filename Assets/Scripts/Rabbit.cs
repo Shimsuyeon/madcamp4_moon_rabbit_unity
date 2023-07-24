@@ -22,10 +22,7 @@ public class Rabbit : MonoBehaviour {
     private GradientColorKey[] colorKeys;
     public Image sliderBack;
     public TMP_Text acc_y_text;
-    public TMP_Text cookie1Text;
-    public TMP_Text cookie2Text;
-    public TMP_Text cookie3Text;
-    public TMP_Text cookie4Text;
+    public GameObject inGameUI;
 
     // Jump
     bool isJumping = false;
@@ -50,6 +47,17 @@ public class Rabbit : MonoBehaviour {
     int[] starCookieStatus;
     public CookieInfo cookieInfo;
 
+    // GameOver UI
+    public GameObject gameOverUI;
+    public TMP_Text cookie1Text;
+    public TMP_Text cookie2Text;
+    public TMP_Text cookie3Text;
+    public TMP_Text cookie4Text;
+    public GameObject effect1;
+    public GameObject effect2;
+    public GameObject effect3;
+    public GameObject effect4;
+    public Button backToMoon;
 
 
     void Start() {
@@ -73,18 +81,15 @@ public class Rabbit : MonoBehaviour {
         starCookies = new GameObject[15];
         starCookieStatus = new int[15];
 
+        // Button listener
+        backToMoon.onClick.AddListener(BackToMoonButton);
+
         // Planet init
         PlanetInit();
     }
 
 
     void Update() {
-        // Print Cookie info
-        cookie1Text.text = "Cookie 1: " + cookieInfo.starCookieEaten[0].ToString();
-        cookie2Text.text = "Cookie 2: " + cookieInfo.starCookieEaten[1].ToString();
-        cookie3Text.text = "Cookie 3: " + cookieInfo.starCookieEaten[2].ToString();
-        cookie4Text.text = "Cookie 4: " + cookieInfo.starCookieEaten[3].ToString();
-        
 
         // Update Acceleration
         acc_x = Input.acceleration.x;
@@ -103,12 +108,14 @@ public class Rabbit : MonoBehaviour {
         rb.velocity = new Vector3(dir.x*x_speed, 0, rb.velocity.z);
         
         // Update Slider
-        fill += acc_y * Time.deltaTime * k;
-        fill = (fill > 0f) ? (fill < 1f ? fill : 1f) : 0f;
-        acc_y_text.text = "acc_y: " + acc_y.ToString();
-        slider.value = fill;
-        Color sliderColor = grad.Evaluate(fill);
-        sliderBack.color = sliderColor;
+        if (slider != null) {
+            fill += acc_y * Time.deltaTime * k;
+            fill = (fill > 0f) ? (fill < 1f ? fill : 1f) : 0f;
+            acc_y_text.text = "acc_y: " + acc_y.ToString();
+            slider.value = fill;
+            Color sliderColor = grad.Evaluate(fill);
+            sliderBack.color = sliderColor;
+        }
 
         // Jump 
         if (acc_y < -0.5f && !isJumping && fill > 0.001f) {
@@ -128,10 +135,14 @@ public class Rabbit : MonoBehaviour {
         if (isJumping) {
             float delta = Time.deltaTime * backgroundVelocity;
             for (int i = 0; i < 5; i++) {
-                planets[i].transform.position += new Vector3(0f, -delta, 0);
+                if (planets[i] != null) {
+                    planets[i].transform.position += new Vector3(0f, -delta, 0);
+                }
             }
-            if (moon.transform.position.y >= -5f) {
-                moon.transform.position += new Vector3(0f, -delta, 0f);
+            if (moon != null) {
+                if (moon.transform.position.y >= -5f) {
+                    moon.transform.position += new Vector3(0f, -delta, 0f);
+                }
             }
             PlanetSpawn();
             StarCookieMove();
@@ -139,7 +150,7 @@ public class Rabbit : MonoBehaviour {
 
         // Game Over
         if (transform.position.z > 500f) {
-            SceneManager.LoadScene("mainScene");
+            GameOverUI();
         }
 
     }
@@ -152,6 +163,8 @@ public class Rabbit : MonoBehaviour {
 
             isJumping = false;
             isJumpingText.text = "0";
+
+
         }
     }
 
@@ -190,7 +203,7 @@ public class Rabbit : MonoBehaviour {
 
     void PlanetSpawn() { // 하나가 지나갈 때마다, 그걸 없애고 새로 스폰함
         for (int i = 0; i < 5; i++) {
-            if (planets[i].transform.position.y < -5f) {
+            if (planets[i] != null && planets[i].transform.position.y < -5f) {
                 Destroy(planets[i]);
                 int rand = Random.Range(0, 10);
                 float x_offset = Random.Range(-2f, 2f);
@@ -230,6 +243,37 @@ public class Rabbit : MonoBehaviour {
                 }
             }
         }
+    }
+
+    // GameOverUI
+    void GameOverUI() {
+        effect1.SetActive(true);
+        effect2.SetActive(true);
+        effect3.SetActive(true);
+        effect4.SetActive(true);
+
+        inGameUI.SetActive(false);
+        gameOverUI.SetActive(true);
+
+        cookie1Text.text = "+ " + cookieInfo.starCookieEaten[0].ToString();
+        cookie2Text.text = "+ " + cookieInfo.starCookieEaten[1].ToString();
+        cookie3Text.text = "+ " + cookieInfo.starCookieEaten[2].ToString();
+        cookie4Text.text = "+ " + cookieInfo.starCookieEaten[3].ToString();
+
+        for (int i = 0; i < 5; i++) {
+            if (planets[i] != null)
+                Destroy(planets[i]);
+        }
+        
+        for (int i = 0; i < 15; i++) {
+            if (starCookies[i] != null)
+                Destroy(starCookies[i]);
+        }
+
+    }
+
+    void BackToMoonButton() {
+        SceneManager.LoadScene("mainScene");
     }
 
 }
