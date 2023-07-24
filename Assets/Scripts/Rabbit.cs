@@ -234,6 +234,8 @@ public class Rabbit : MonoBehaviour {
             float x_offset = Random.Range(-2, 2);
 
             GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, 5f * (i+1), 0f), Quaternion.Euler(90f, 0f, 0f));
+            float scale = Random.Range(1f, 2f);
+            planetPrefab.transform.localScale = new Vector3(scale, 0.001f, scale);
             planets[i] = planetPrefab;
             if (i > 0)
                 StarCookieSpawn(i, 5f*(i+1));
@@ -248,6 +250,8 @@ public class Rabbit : MonoBehaviour {
                 float x_offset = Random.Range(-2f, 2f);
                 int currLast = (i == 0 ? 4 : i - 1);
                 GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, planets[currLast].transform.position.y + 5f, 0f), Quaternion.Euler(90f, 0f, 0f));
+                float scale = Random.Range(1f, 2f);
+                planetPrefab.transform.localScale = new Vector3(scale, 0.001f, scale);
                 planets[i] = planetPrefab;
                 StarCookieSpawn(i, planets[i].transform.position.y);
             }
