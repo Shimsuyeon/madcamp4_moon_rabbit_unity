@@ -26,6 +26,10 @@ public class Rabbit : MonoBehaviour {
     public Image sliderBack;
     public TMP_Text acc_y_text;
     public GameObject inGameUI;
+    public TMP_Text amt1;
+    public TMP_Text amt2;
+    public TMP_Text amt3;
+    public TMP_Text amt4;
 
     // Jump
     bool isJumping = false;
@@ -49,6 +53,7 @@ public class Rabbit : MonoBehaviour {
     GameObject[] starCookies;
     int[] starCookieStatus;
     public CookieInfo cookieInfo;
+    public int[] cookies;
 
     // GameOver UI
     bool isGameOver = false;
@@ -63,7 +68,11 @@ public class Rabbit : MonoBehaviour {
     public GameObject effect4;
     public Button backToMoon;
 
-    public int[] cookies;
+    // Jump Animation
+    float jumpFulllTime;
+    float jumpProgressTime;
+    public GameObject[] jumpMaterials;
+    
 
 
     void Start() {
@@ -103,6 +112,11 @@ public class Rabbit : MonoBehaviour {
 
     void Update() {
         if(isGameOver) return;
+        
+        amt1.text = (PlayerPrefs.GetInt("cookie1") + cookieInfo.starCookieEaten[0]).ToString();
+        amt2.text = (PlayerPrefs.GetInt("cookie2") + cookieInfo.starCookieEaten[1]).ToString();
+        amt3.text = (PlayerPrefs.GetInt("cookie3") + cookieInfo.starCookieEaten[2]).ToString();
+        amt4.text = (PlayerPrefs.GetInt("cookie4") + cookieInfo.starCookieEaten[3]).ToString();
 
         // Update Acceleration
         acc_x = Input.acceleration.x;
@@ -183,6 +197,7 @@ public class Rabbit : MonoBehaviour {
         }
     }
 
+    // 점프점프
     private void Jump() {
         if (!isJumping) {
             float jumpHeight = 6 * fill;

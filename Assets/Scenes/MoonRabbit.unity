@@ -352,12 +352,12 @@ GameObject:
   - component: {fileID: 40919617}
   - component: {fileID: 40919616}
   m_Layer: 5
-  m_Name: Cookie1Text
+  m_Name: Amount1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &40919615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -374,7 +374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 900}
+  m_AnchoredPosition: {x: -300, y: 900}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &40919616
@@ -399,15 +399,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: cookie1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
+  m_sharedMaterial: {fileID: 5659199544297166028, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294962536
+  m_fontColor: {r: 0.40943396, g: 0.9279388, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -424,15 +424,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -759,12 +759,12 @@ GameObject:
   - component: {fileID: 223974229}
   - component: {fileID: 223974228}
   m_Layer: 5
-  m_Name: Cookie3Text
+  m_Name: Amount3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &223974227
 RectTransform:
   m_ObjectHideFlags: 0
@@ -781,7 +781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 700}
+  m_AnchoredPosition: {x: 100, y: 900}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223974228
@@ -806,15 +806,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: cookie3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
+  m_sharedMaterial: {fileID: 5659199544297166028, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282558975
+  m_fontColor: {r: 1, g: 0.6624417, b: 0.2584905, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -831,15 +831,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1404,7 +1404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 900}
+  m_AnchoredPosition: {x: -200, y: 700}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407467478
@@ -1571,7 +1571,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: 600}
+  m_AnchoredPosition: {x: 400, y: 400}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &564587346
@@ -2194,6 +2194,10 @@ MonoBehaviour:
   sliderBack: {fileID: 1268829223}
   acc_y_text: {fileID: 782628377}
   inGameUI: {fileID: 894996102}
+  amt1: {fileID: 40919616}
+  amt2: {fileID: 1828601337}
+  amt3: {fileID: 223974228}
+  amt4: {fileID: 1509573423}
   isJumpingText: {fileID: 407467478}
   materials:
   - {fileID: 2100000, guid: 3d926f697d3584b4ca632b206ec87917, type: 2}
@@ -2234,6 +2238,7 @@ MonoBehaviour:
   - {fileID: 8826467562058866885, guid: 143e8a20df4dcf949b654359b53864ee, type: 3}
   - {fileID: 8826467562058866885, guid: 8f1a3dbf1f2c67a4e8ede6b1dd8e54fa, type: 3}
   cookieInfo: {fileID: 11400000, guid: d176831a414d64843b5efe0ec53a7848, type: 2}
+  cookies: 
   gameOverUI: {fileID: 2128839786}
   cookie1Text: {fileID: 1136557982}
   cookie2Text: {fileID: 57693457}
@@ -2244,6 +2249,7 @@ MonoBehaviour:
   effect3: {fileID: 2051765987}
   effect4: {fileID: 1370652329}
   backToMoon: {fileID: 1662865270}
+  jumpMaterials: []
 --- !u!1 &782628375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,7 +2284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 800}
+  m_AnchoredPosition: {x: -200, y: 600}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &782628377
@@ -3490,7 +3496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3d926f697d3584b4ca632b206ec87917, type: 2}
+  - {fileID: 2100000, guid: 9ef60a1f74325c34eacab2f3f8307cee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3615,12 +3621,12 @@ GameObject:
   - component: {fileID: 1509573424}
   - component: {fileID: 1509573423}
   m_Layer: 5
-  m_Name: Cookie4Text
+  m_Name: Amount4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1509573422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3637,7 +3643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 600}
+  m_AnchoredPosition: {x: 300, y: 900}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509573423
@@ -3662,15 +3668,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: cookie4
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
+  m_sharedMaterial: {fileID: 5659199544297166028, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4290143487
+  m_fontColor: {r: 1, g: 0.390566, b: 0.71565235, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3687,15 +3693,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4286,12 +4292,12 @@ GameObject:
   - component: {fileID: 1828601338}
   - component: {fileID: 1828601337}
   m_Layer: 5
-  m_Name: Cookie2Text
+  m_Name: Amount2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1828601336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4308,7 +4314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 800}
+  m_AnchoredPosition: {x: -100, y: 900}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1828601337
@@ -4333,15 +4339,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: cookie2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
+  m_sharedMaterial: {fileID: 5659199544297166028, guid: 921a2f79f029d104abdd39306c4c4708, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288671482
+  m_fontColor: {r: 0.9811321, g: 0.93529147, b: 0.6238519, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4358,15 +4364,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
