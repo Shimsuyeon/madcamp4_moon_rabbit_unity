@@ -22,9 +22,10 @@ public class Rabbit : MonoBehaviour {
     private GradientColorKey[] colorKeys;
     public Image sliderBack;
     public TMP_Text acc_y_text;
-    public TMP_Text x_text;
-    public TMP_Text y_text;
-    public TMP_Text z_text;
+    public TMP_Text cookie1Text;
+    public TMP_Text cookie2Text;
+    public TMP_Text cookie3Text;
+    public TMP_Text cookie4Text;
 
     // Jump
     bool isJumping = false;
@@ -47,7 +48,7 @@ public class Rabbit : MonoBehaviour {
     public GameObject[] starCookiePrefabs;
     GameObject[] starCookies;
     int[] starCookieStatus;
-    // public GameObject[] starCookieEffects;
+    public CookieInfo cookieInfo;
 
 
 
@@ -78,10 +79,12 @@ public class Rabbit : MonoBehaviour {
 
 
     void Update() {
-        // Print x, y, z
-        x_text.text = "x: " + transform.position.x.ToString();
-        y_text.text = "y: " + transform.position.y.ToString();
-        z_text.text = "z: " + transform.position.z.ToString();
+        // Print Cookie info
+        cookie1Text.text = "Cookie 1: " + cookieInfo.starCookieEaten[0].ToString();
+        cookie2Text.text = "Cookie 2: " + cookieInfo.starCookieEaten[1].ToString();
+        cookie3Text.text = "Cookie 3: " + cookieInfo.starCookieEaten[2].ToString();
+        cookie4Text.text = "Cookie 4: " + cookieInfo.starCookieEaten[3].ToString();
+        
 
         // Update Acceleration
         acc_x = Input.acceleration.x;
@@ -208,6 +211,7 @@ public class Rabbit : MonoBehaviour {
             float y_offset = Random.Range(-4f, -1f);
             GameObject starCookiePrefab = Instantiate(starCookiePrefabs[rand], new Vector3(x_offset, baseY + y_offset, 0f), Quaternion.Euler(0f, 0f, 0f));
             starCookies[3*planetIdx + i] = starCookiePrefab;
+            starCookies[3*planetIdx + i].GetComponent<StarCookie>().cookieType = rand + 1;
             starCookieStatus[3*planetIdx + i] = rand + 1;
         }
     }

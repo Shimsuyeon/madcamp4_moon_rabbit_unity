@@ -203,3 +203,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 2949260587590792924, guid: ab6c11ab3243e2a4db341457ffb1d5e5, type: 3}
+  cookieType: 2
+  cookieInfo: {fileID: 11400000, guid: d176831a414d64843b5efe0ec53a7848, type: 2}

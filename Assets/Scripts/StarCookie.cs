@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StarCookie : MonoBehaviour {
     public GameObject particlePrefab;
+    public int cookieType; // 1, 2, 3, 4
+    public CookieInfo cookieInfo;
 
     void Start() {
         // Debug.Log("Star Cookie Hit");
@@ -18,6 +20,7 @@ public class StarCookie : MonoBehaviour {
             Debug.Log("Star Cookie Hit");
             // 파티클 스폰을 위한 코루틴 시작
             StartCoroutine(SpawnParticleCoroutine());
+            cookieInfo.starCookieEaten[cookieType - 1]++;
             Destroy(gameObject);
         }
     }
