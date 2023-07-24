@@ -69,9 +69,9 @@ public class Rabbit : MonoBehaviour {
     public Button backToMoon;
 
     // Jump Animation
-    float jumpFulllTime;
+    float jumpFullTime;
     float jumpProgressTime;
-    public GameObject[] jumpMaterials;
+    public Material[] jumpMaterials;
     
 
 
@@ -149,13 +149,15 @@ public class Rabbit : MonoBehaviour {
             Jump();
         }
 
-        // Animation
-        timer += Time.deltaTime;
+        // None-Jump Animation
+        if (!isJumping || jumpFullTime < 1f) {
+            timer += Time.deltaTime;
 
-        if (timer >= changeInterval) {
-            timer = 0f;
-            currentIndex = (currentIndex + 1) % materials.Length;
-            rabbitRenderer.material = materials[currentIndex];
+            if (timer >= changeInterval) {
+                timer = 0f;
+                currentIndex = (currentIndex + 1) % materials.Length;
+                rabbitRenderer.material = materials[currentIndex];
+            }
         }
 
         // Background Move
@@ -182,6 +184,21 @@ public class Rabbit : MonoBehaviour {
             isGameOver = true;
         }
 
+        // Jump Animation
+        if (isJumping && jumpFullTime > 1f) {
+            // if (jumpProgressTime >= jumpFullTime) {
+            //     jumpProgressTime = 0f;
+            //     isJumping = false;
+            //     isJumpingText.text = "0";
+            // }
+            
+            float ratio = jumpProgressTime / jumpFullTime;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+            
+        }
+
     }
 
     // Rabbit 충돌 처리
@@ -201,7 +218,8 @@ public class Rabbit : MonoBehaviour {
     private void Jump() {
         if (!isJumping) {
             float jumpHeight = 6 * fill;
-            // float jumpTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpProgressTime = 0f;
             float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
             
             rb.AddForce(new Vector3(0f, 0f, -jumpSpeed), ForceMode.VelocityChange);
