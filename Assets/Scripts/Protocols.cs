@@ -10,6 +10,9 @@ public class Protocols
         {
             public string id;
             public string pw;
+            public string status;
+            public int[] shop;
+            public int[] cookie;
         }
 
 
