@@ -24,5 +24,20 @@ public class Protocols
             public bool result;
         }
 
+
+
+        public class req_GetCookie {
+            public string id;
+        }
+        public class res_GetCookie {
+            public int[] cookie;
+        }
+
+
+        public class req_UpdateCookie {
+            public string id;
+            public int[] cookie;
+        }
+
     }
 }
