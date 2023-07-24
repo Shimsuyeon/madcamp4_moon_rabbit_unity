@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/loginScene.unity
+    guid: e273f9b5d72d0214cb7cbd5503b0fa15
+  - enabled: 1
+    path: Assets/Scenes/signUpScene.unity
+    guid: 7fdf365a0836c8b4785ed33dabcd6f24
+  - enabled: 1
     path: Assets/Scenes/mainScene.unity
     guid: 06cb17b968fb1f144aaf20097120ef41
   - enabled: 1
@@ -14,10 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MoonRabbit.unity
     guid: 90a830a60c498144d87c30154d2c9bc8
-  - enabled: 1
-    path: Assets/Scenes/loginScene.unity
-    guid: e273f9b5d72d0214cb7cbd5503b0fa15
-  - enabled: 1
-    path: Assets/Scenes/signUpScene.unity
-    guid: 7fdf365a0836c8b4785ed33dabcd6f24
   m_configObjects: {}
