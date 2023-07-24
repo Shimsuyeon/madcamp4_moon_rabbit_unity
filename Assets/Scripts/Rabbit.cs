@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using Newtonsoft.Json;
+using System.Text;
 
 public class Rabbit : MonoBehaviour {
-
+    string id;
     // Cube
     public float x_speed;
     float acc_x;
@@ -48,6 +51,7 @@ public class Rabbit : MonoBehaviour {
     public CookieInfo cookieInfo;
 
     // GameOver UI
+    bool isGameOver = false;
     public GameObject gameOverUI;
     public TMP_Text cookie1Text;
     public TMP_Text cookie2Text;
@@ -59,8 +63,12 @@ public class Rabbit : MonoBehaviour {
     public GameObject effect4;
     public Button backToMoon;
 
+    public int[] cookies;
+
 
     void Start() {
+        id = PlayerPrefs.GetString("id");
+
         // Rabbit init
         rabbitRenderer.material = materials[currentIndex];
         isJumping = false;
@@ -86,10 +94,15 @@ public class Rabbit : MonoBehaviour {
 
         // Planet init
         PlanetInit();
+
+        cookies = new int[4];        
+        GetCookieData(id);
+
     }
 
 
     void Update() {
+        if(isGameOver) return;
 
         // Update Acceleration
         acc_x = Input.acceleration.x;
@@ -151,6 +164,8 @@ public class Rabbit : MonoBehaviour {
         // Game Over
         if (transform.position.z > 500f) {
             GameOverUI();
+            UpdateCookieData(id);
+            isGameOver = true;
         }
 
     }
@@ -255,10 +270,10 @@ public class Rabbit : MonoBehaviour {
         inGameUI.SetActive(false);
         gameOverUI.SetActive(true);
 
-        cookie1Text.text = "+ " + cookieInfo.starCookieEaten[0].ToString();
-        cookie2Text.text = "+ " + cookieInfo.starCookieEaten[1].ToString();
-        cookie3Text.text = "+ " + cookieInfo.starCookieEaten[2].ToString();
-        cookie4Text.text = "+ " + cookieInfo.starCookieEaten[3].ToString();
+        cookie1Text.text = PlayerPrefs.GetInt("cookie1").ToString() + " + " + cookieInfo.starCookieEaten[0].ToString();
+        cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString() + " + " + cookieInfo.starCookieEaten[1].ToString();
+        cookie3Text.text = PlayerPrefs.GetInt("cookie3").ToString() + " + " + cookieInfo.starCookieEaten[2].ToString();
+        cookie4Text.text = PlayerPrefs.GetInt("cookie4").ToString() + " + " + cookieInfo.starCookieEaten[3].ToString();
 
         for (int i = 0; i < 5; i++) {
             if (planets[i] != null)
@@ -276,4 +291,88 @@ public class Rabbit : MonoBehaviour {
         SceneManager.LoadScene("mainScene");
     }
 
+
+    // Network
+
+    // GetCookie
+    void GetCookieData(string id) {
+        // var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie");
+        var url = string.Format("{0}/{1}?id={2}", "http://34.64.98.2:3000", "api/cookie", id);
+        // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie");
+        var req = new Protocols.Packets.req_GetCookie();
+        req.id = id;
+        
+        StartCoroutine(GetCookieById(url, (response) => {
+            var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
+            cookies = res.cookie;
+            PlayerPrefs.SetInt("cookie1", cookies[0]);
+            PlayerPrefs.SetInt("cookie2", cookies[1]);
+            PlayerPrefs.SetInt("cookie3", cookies[2]);
+            PlayerPrefs.SetInt("cookie4", cookies[3]);
+
+            Debug.LogFormat("쿠키1 : {0}, 쿠키2 : {1}, 쿠키3 : {2}, 쿠키4 : {3}", cookies[0], cookies[1], cookies[2], cookies[3]);
+        }));
+    }
+
+    public static IEnumerator GetCookieById(string url, System.Action<string> callback) {
+        var webRequest = new UnityWebRequest(url, "GET");
+        webRequest.downloadHandler = new DownloadHandlerBuffer();
+        webRequest.SetRequestHeader("Content-Type", "application/json");
+
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("네트워크 환경이 안좋아서 통신을 할수 없습니다.");
+        }
+        else
+        {
+            Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
+            callback(webRequest.downloadHandler.text);
+        }
+    }
+
+    // UpdateCookie
+    void UpdateCookieData(string id) {
+        var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/update");
+        // var url = string.Format("{0}/{1}?id={2}", "http://34.64.98.2:3000", "api/cookie/update", id);
+        // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie/update");
+        var req = new Protocols.Packets.req_UpdateCookie();
+        req.id = id;
+        for (int i = 0; i < 4; i++) {
+            cookies[i] += cookieInfo.starCookieEaten[i];
+        }
+        PlayerPrefs.SetInt("cookie1", cookies[0]);
+        PlayerPrefs.SetInt("cookie2", cookies[1]);
+        PlayerPrefs.SetInt("cookie3", cookies[2]);
+        PlayerPrefs.SetInt("cookie4", cookies[3]);
+        req.cookie = cookies;
+        
+        StartCoroutine(UpdateCookieById(url, JsonConvert.SerializeObject(req), (response) => {
+            // var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
+            // cookies = res.cookie;
+            
+            Debug.LogFormat("Cookie Updated {0}, {1}, {2}, {3}", cookies[0], cookies[1], cookies[2], cookies[3]);
+        }));
+    }
+
+    public static IEnumerator UpdateCookieById(string url, string json, System.Action<string> callback) {
+        var webRequest = new UnityWebRequest(url, "POST");
+        var bodyRaw = Encoding.UTF8.GetBytes(json);
+        webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        webRequest.downloadHandler = new DownloadHandlerBuffer();
+        webRequest.SetRequestHeader("Content-Type", "application/json");
+
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("네트워크 환경이 안좋아서 통신을 할수 없습니다.");
+        }
+        else
+        {
+            Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
+            callback(webRequest.downloadHandler.text);
+        }
+    }
 }
+
+

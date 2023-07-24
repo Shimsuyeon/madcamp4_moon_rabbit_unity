@@ -14,10 +14,13 @@ public class LoginController : MonoBehaviour
     public TMP_InputField LoginPw;
     public Button LoginDone;
     public TextMeshProUGUI loginResultText;
+    public int[] cookies;
+
     // Start is called before the first frame update
     void Start()
     {
         LoginDone.onClick.AddListener(OnloginButtonClicked);
+        cookies = new int[4];
     }
     public void OnloginButtonClicked()
     {
@@ -29,6 +32,7 @@ public class LoginController : MonoBehaviour
     void PerformLogin(string id, string password)
     {
         var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/login");
+        // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/login");
         var req = new Protocols.Packets.req_Login();
         req.id = id;
         req.pw = password;
@@ -37,25 +41,68 @@ public class LoginController : MonoBehaviour
         {
             if (response == "success")
             {
+                PlayerPrefs.SetString("id", id);
+                GetCookieData(id);
                 SceneManager.LoadScene("mainScene");
             }
             else if (response == "none")
             {
-                loginResultText.text = "¾ÆÀÌµğ³ª ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+                loginResultText.text = "ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
             }
         }));
     }
-        public static IEnumerator LoginUser(string url, string json, System.Action<string> callback)
-        {
-            var webRequest = new UnityWebRequest(url, "GET");
-            var bodyRaw = Encoding.UTF8.GetBytes(json);
-            webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            webRequest.downloadHandler = new DownloadHandlerBuffer();
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-            yield return webRequest.SendWebRequest();
+
+    void GetCookieData(string id) {
+        var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie");
+        // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie");
+        var req = new Protocols.Packets.req_Login();
+        req.id = id;
+        
+        StartCoroutine(GetCookieById(url, JsonConvert.SerializeObject(req), (response) => {
+            var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
+            cookies = res.cookie;
+            PlayerPrefs.SetInt("cookie1", cookies[0]);
+            PlayerPrefs.SetInt("cookie2", cookies[1]);
+            PlayerPrefs.SetInt("cookie3", cookies[2]);
+            PlayerPrefs.SetInt("cookie4", cookies[3]);
+
+            Debug.LogFormat("ì¿ í‚¤1 : {0}, ì¿ í‚¤2 : {1}, ì¿ í‚¤3 : {2}, ì¿ í‚¤4 : {3}", cookies[0], cookies[1], cookies[2], cookies[3]);
+        }));
+
+
+    }
+
+    public static IEnumerator LoginUser(string url, string json, System.Action<string> callback)
+    {
+        var webRequest = new UnityWebRequest(url, "GET");
+        var bodyRaw = Encoding.UTF8.GetBytes(json);
+        webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        webRequest.downloadHandler = new DownloadHandlerBuffer();
+        webRequest.SetRequestHeader("Content-Type", "application/json");
+        yield return webRequest.SendWebRequest();
+    if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+    {
+        Debug.Log("ï¿½ï¿½Æ®ï¿½ï¿½Å© È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+    }
+    else
+    {
+        Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
+        callback(webRequest.downloadHandler.text);
+    }
+    }
+
+    public static IEnumerator GetCookieById(string url, string json, System.Action<string> callback) {
+        var webRequest = new UnityWebRequest(url, "GET");
+        var bodyRaw = Encoding.UTF8.GetBytes(json);
+
+        webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        webRequest.downloadHandler = new DownloadHandlerBuffer();
+        webRequest.SetRequestHeader("Content-Type", "application/json");
+
+        yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("³×Æ®¿öÅ© È¯°æÀÌ ¾ÈÁÁ¾Æ¼­ Åë½ÅÀ» ÇÒ¼ö ¾ø½À´Ï´Ù.");
+            Debug.Log("ë„¤íŠ¸ì›Œí¬ í™˜ê²½ì´ ì•ˆì¢‹ì•„ì„œ í†µì‹ ì„ í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
         else
         {
@@ -63,5 +110,8 @@ public class LoginController : MonoBehaviour
             callback(webRequest.downloadHandler.text);
         }
     }
-    }
 
+    void delay() {
+
+    }
+}
