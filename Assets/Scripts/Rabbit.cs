@@ -26,6 +26,10 @@ public class Rabbit : MonoBehaviour {
     public Image sliderBack;
     public TMP_Text acc_y_text;
     public GameObject inGameUI;
+    public TMP_Text amt1;
+    public TMP_Text amt2;
+    public TMP_Text amt3;
+    public TMP_Text amt4;
 
     // Jump
     bool isJumping = false;
@@ -49,6 +53,7 @@ public class Rabbit : MonoBehaviour {
     GameObject[] starCookies;
     int[] starCookieStatus;
     public CookieInfo cookieInfo;
+    public int[] cookies;
 
     // GameOver UI
     bool isGameOver = false;
@@ -63,7 +68,11 @@ public class Rabbit : MonoBehaviour {
     public GameObject effect4;
     public Button backToMoon;
 
-    public int[] cookies;
+    // Jump Animation
+    float jumpFullTime;
+    float jumpProgressTime;
+    public Material[] jumpMaterials;
+    
 
 
     void Start() {
@@ -103,6 +112,11 @@ public class Rabbit : MonoBehaviour {
 
     void Update() {
         if(isGameOver) return;
+        
+        amt1.text = (PlayerPrefs.GetInt("cookie1") + cookieInfo.starCookieEaten[0]).ToString();
+        amt2.text = (PlayerPrefs.GetInt("cookie2") + cookieInfo.starCookieEaten[1]).ToString();
+        amt3.text = (PlayerPrefs.GetInt("cookie3") + cookieInfo.starCookieEaten[2]).ToString();
+        amt4.text = (PlayerPrefs.GetInt("cookie4") + cookieInfo.starCookieEaten[3]).ToString();
 
         // Update Acceleration
         acc_x = Input.acceleration.x;
@@ -135,13 +149,15 @@ public class Rabbit : MonoBehaviour {
             Jump();
         }
 
-        // Animation
-        timer += Time.deltaTime;
+        // None-Jump Animation
+        if (!isJumping || jumpFullTime < 1f) {
+            timer += Time.deltaTime;
 
-        if (timer >= changeInterval) {
-            timer = 0f;
-            currentIndex = (currentIndex + 1) % materials.Length;
-            rabbitRenderer.material = materials[currentIndex];
+            if (timer >= changeInterval) {
+                timer = 0f;
+                currentIndex = (currentIndex + 1) % materials.Length;
+                rabbitRenderer.material = materials[currentIndex];
+            }
         }
 
         // Background Move
@@ -168,6 +184,14 @@ public class Rabbit : MonoBehaviour {
             isGameOver = true;
         }
 
+        // Jump Animation
+        if (isJumping && jumpFullTime > 1f) {
+            float ratio = jumpProgressTime / jumpFullTime;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        }
+
     }
 
     // Rabbit 충돌 처리
@@ -178,15 +202,15 @@ public class Rabbit : MonoBehaviour {
 
             isJumping = false;
             isJumpingText.text = "0";
-
-
         }
     }
 
+    // 점프점프
     private void Jump() {
         if (!isJumping) {
             float jumpHeight = 6 * fill;
-            // float jumpTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpProgressTime = 0f;
             float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
             
             rb.AddForce(new Vector3(0f, 0f, -jumpSpeed), ForceMode.VelocityChange);
@@ -285,6 +309,20 @@ public class Rabbit : MonoBehaviour {
                 Destroy(starCookies[i]);
         }
 
+        Invoke("GameOverUI2", 2f);
+
+    }
+
+    void GameOverUI2() {
+        cookie1Text.text = PlayerPrefs.GetInt("cookie1").ToString();
+        cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString();
+        cookie3Text.text = PlayerPrefs.GetInt("cookie3").ToString();
+        cookie4Text.text = PlayerPrefs.GetInt("cookie4").ToString();
+
+        cookie1Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        cookie2Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        cookie3Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        cookie4Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
     void BackToMoonButton() {
