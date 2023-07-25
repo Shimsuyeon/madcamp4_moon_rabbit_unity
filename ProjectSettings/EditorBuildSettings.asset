@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/bakingScene.unity
     guid: 08bd1683f370eaa4c8b15b751c5da1f9
+  - enabled: 1
+    path: Assets/Scenes/cellcookieScene.unity
+    guid: efd887a9b25b2534d9206be36c854558
   m_configObjects: {}

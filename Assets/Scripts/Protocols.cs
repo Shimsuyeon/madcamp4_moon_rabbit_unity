@@ -13,6 +13,7 @@ public class Protocols
             public string status;
             public int[] shop;
             public int[] cookie;
+            public int money;
         }
 
 
@@ -41,6 +42,18 @@ public class Protocols
             public string id;
             public int[] cookie;
         }
+        public class req_MakeCookie
+        {
+            public string id;
+            public int[] cookie;
+            public int[] shop;
+        }
 
+        public class req_cellCookies
+        {
+            public string id;
+            public int[] shop;
+            public int money;
+        }
     }
 }
