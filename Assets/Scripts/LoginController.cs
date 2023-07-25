@@ -53,6 +53,7 @@ public class LoginController : MonoBehaviour
                 PlayerPrefs.SetString("id", id);
                 cookies = res.cookie;
                 shop = res.shop;
+                PlayerPrefs.SetInt("score", res.score);
                 Debug.Log(cookies[0]);
                 Debug.Log(shop[0]);
                 GetCookieData(id);

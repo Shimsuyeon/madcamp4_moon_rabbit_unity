@@ -392,6 +392,7 @@ public class Rabbit : MonoBehaviour {
         // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie/update");
         var req = new Protocols.Packets.req_UpdateCookie();
         req.id = id;
+        req.score = scoreInfo.score;
         for (int i = 0; i < 4; i++) {
             cookies[i] += cookieInfo.starCookieEaten[i];
         }

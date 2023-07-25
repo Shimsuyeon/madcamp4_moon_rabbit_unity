@@ -13,6 +13,7 @@ public class Protocols
             public string status;
             public int[] shop;
             public int[] cookie;
+            public int score;
         }
 
 
@@ -40,6 +41,7 @@ public class Protocols
         public class req_UpdateCookie {
             public string id;
             public int[] cookie;
+            public int score;
         }
 
     }
