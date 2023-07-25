@@ -72,6 +72,10 @@ public class Rabbit : MonoBehaviour {
     float jumpFullTime;
     float jumpProgressTime;
     public Material[] jumpMaterials;
+
+    // Score Management
+    public ScoreInfo scoreInfo;
+    public TMP_Text scoreText;
     
 
 
@@ -185,17 +189,25 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Jump Animation
-        if (isJumping && jumpFullTime > 1f && jumpFullTime < 2f) {
+        if (isJumping && jumpFullTime > 1f && jumpFullTime < 1.5f) {
             float ratio = jumpProgressTime / jumpFullTime;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
-        } else if (isJumping && jumpFullTime >= 2f) {
+        } else if (isJumping && jumpFullTime >= 1.5f && jumpFullTime < 2f) {
             float ratio = jumpProgressTime / jumpFullTime * 2;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 2f) {
+            float ratio = jumpProgressTime / jumpFullTime * 3;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
         }
+
+        // Score Update
+        scoreText.text = "점수: " + scoreInfo.score.ToString() + "점";
 
     }
 
@@ -204,7 +216,7 @@ public class Rabbit : MonoBehaviour {
         if (collision.gameObject.CompareTag("ground")) {
             if(isJumping)
                 Debug.Log("Hit ground!!!");
-
+            scoreInfo.score += 5;
             isJumping = false;
             isJumpingText.text = "0";
         }
