@@ -44,5 +44,10 @@ public class Protocols
             public int score;
         }
 
+
+        public class req_GetRank {
+            public RankUnit[] rank;
+        }
+
     }
 }
