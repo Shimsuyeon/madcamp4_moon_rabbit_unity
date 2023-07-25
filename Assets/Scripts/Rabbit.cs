@@ -185,8 +185,13 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Jump Animation
-        if (isJumping && jumpFullTime > 1f) {
+        if (isJumping && jumpFullTime > 1f && jumpFullTime < 2f) {
             float ratio = jumpProgressTime / jumpFullTime;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 2f) {
+            float ratio = jumpProgressTime / jumpFullTime * 2;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
@@ -322,11 +327,6 @@ public class Rabbit : MonoBehaviour {
         cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString();
         cookie3Text.text = PlayerPrefs.GetInt("cookie3").ToString();
         cookie4Text.text = PlayerPrefs.GetInt("cookie4").ToString();
-
-        cookie1Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie2Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie3Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie4Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
     void BackToMoonButton() {
