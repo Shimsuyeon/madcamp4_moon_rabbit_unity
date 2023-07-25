@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1393198262953670304}
   m_Layer: 0
   m_Name: Sun
-  m_TagString: ground
+  m_TagString: sun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

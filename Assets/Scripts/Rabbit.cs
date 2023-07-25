@@ -221,6 +221,18 @@ public class Rabbit : MonoBehaviour {
             scoreInfo.score += 5;
             isJumping = false;
             isJumpingText.text = "0";
+        } else if (collision.gameObject.CompareTag("sun")) {
+            scoreInfo.score += 100;
+            float jumpHeight = 20;
+            jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpProgressTime = 0f;
+            float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
+
+            rb.AddForce(new Vector3(0f, 0f, -jumpSpeed), ForceMode.VelocityChange);
+            isJumping = true;
+            isJumpingText.text = "1";
+            Debug.Log("Super Jump!!!");
+            fill = 0;
         }
     }
 
