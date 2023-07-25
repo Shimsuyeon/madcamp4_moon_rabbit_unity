@@ -88,15 +88,15 @@ public class Rabbit : MonoBehaviour {
         isJumpingText.text = "0";
 
         // Color gradient init
-        grad = new Gradient();
-        colorKeys = new GradientColorKey[3];
-        colorKeys[0].color = Color.green;
-        colorKeys[0].time = 0f;
-        colorKeys[1].color = Color.yellow;
-        colorKeys[1].time = 0.5f;
-        colorKeys[2].color = Color.red;
-        colorKeys[2].time = 1f;
-        grad.colorKeys = colorKeys;
+        // grad = new Gradient();
+        // colorKeys = new GradientColorKey[3];
+        // colorKeys[0].color = Color.green;
+        // colorKeys[0].time = 0f;
+        // colorKeys[1].color = Color.yellow;
+        // colorKeys[1].time = 0.5f;
+        // colorKeys[2].color = Color.red;
+        // colorKeys[2].time = 1f;
+        // grad.colorKeys = colorKeys;
 
         // Star Cookie init
         starCookies = new GameObject[15];
@@ -143,9 +143,9 @@ public class Rabbit : MonoBehaviour {
             fill += acc_y * Time.deltaTime * k;
             fill = (fill > 0f) ? (fill < 1f ? fill : 1f) : 0f;
             acc_y_text.text = "acc_y: " + acc_y.ToString();
-            slider.value = fill;
-            Color sliderColor = grad.Evaluate(fill);
-            sliderBack.color = sliderColor;
+            slider.value = 1 - fill;
+            //Color sliderColor = grad.Evaluate(fill);
+            //sliderBack.color = sliderColor;
         }
 
         // Jump 

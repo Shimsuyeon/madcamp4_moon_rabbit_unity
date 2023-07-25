@@ -25,7 +25,7 @@ public class RegistrationController : MonoBehaviour
     public void OnRegisterButtonClicked()
     {
         string id = registerId.text;
-        string password = registerPw.text;
+        string password = LoginController.GetSHA256Hash(registerPw.text);
         Debug.Log("ddd");
         Debug.Log(id);
         Debug.Log(password);
