@@ -6,17 +6,20 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LeaderBoardScript : MonoBehaviour {
     public RankUnit[] rank;
     public GameObject rankPrefab;
     public GameObject scrollContent;
     bool d = false;
+    public Button backButton;
 
 
     void Start() {
         rank = new RankUnit[80];
         GetRankData();
+        backButton.onClick.AddListener(BackButtonListener);
     }
 
     void Update() {
@@ -63,6 +66,9 @@ public class LeaderBoardScript : MonoBehaviour {
 
     void PrintRank() {
         // Debug.Log("here2");
+        int prevRank = 1;
+        int prevScore = 0;
+
         for (int i = 0; i < rank.Length; i++) {
             if (rank[i] != null) {
                 // Debug.Log("here1");
@@ -70,15 +76,42 @@ public class LeaderBoardScript : MonoBehaviour {
                 Vector3 pos = rankUnit.transform.localPosition;
                 pos.y = -i * 100 - 50;
                 rankUnit.transform.localPosition = pos;
-                rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().text = (i + 1).ToString();
+
+                if (i > 0 && prevScore == rank[i].score) {
+                    rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().text = prevRank.ToString();
+                } else {
+                    rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().text = (i + 1).ToString();
+                    prevRank = i + 1;
+                    prevScore = rank[i].score;
+                }
                 rankUnit.transform.GetChild(1).GetComponent<TMP_Text>().text = rank[i].id;
                 rankUnit.transform.GetChild(2).GetComponent<TMP_Text>().text = rank[i].score.ToString();
+            
+
+                if (i == 0) {
+                    Color gold = new Color(1, 0.8431373f, 0);
+                    rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().color = gold;
+                    rankUnit.transform.GetChild(1).GetComponent<TMP_Text>().color = gold;
+                    rankUnit.transform.GetChild(2).GetComponent<TMP_Text>().color = gold;
+                } else if(i == 1) {
+                    Color silver = new Color(0.7529412f, 0.7529412f, 0.7529412f);
+                    rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().color = silver;
+                    rankUnit.transform.GetChild(1).GetComponent<TMP_Text>().color = silver;
+                    rankUnit.transform.GetChild(2).GetComponent<TMP_Text>().color = silver;
+                } else if (i == 2) {
+                    Color bronze = new Color(0.8039216f, 0.5215687f, 0.2470588f);
+                    rankUnit.transform.GetChild(0).GetComponent<TMP_Text>().color = bronze;
+                    rankUnit.transform.GetChild(1).GetComponent<TMP_Text>().color = bronze;
+                    rankUnit.transform.GetChild(2).GetComponent<TMP_Text>().color = bronze;
+                }
+
+
                 d = true;
             }
         }
     }
 
-    void delay() {
-
+    void BackButtonListener() {
+        SceneManager.LoadScene("mainScene");
     }
 }
