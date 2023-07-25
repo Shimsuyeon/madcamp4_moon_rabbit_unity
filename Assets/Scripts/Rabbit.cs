@@ -142,7 +142,7 @@ public class Rabbit : MonoBehaviour {
         if (slider != null) {
             fill += acc_y * Time.deltaTime * k;
             fill = (fill > 0f) ? (fill < 1f ? fill : 1f) : 0f;
-            acc_y_text.text = "acc_y: " + acc_y.ToString();
+            // acc_y_text.text = "acc_y: " + acc_y.ToString();
             slider.value = 1 - fill;
             //Color sliderColor = grad.Evaluate(fill);
             //sliderBack.color = sliderColor;
@@ -209,6 +209,8 @@ public class Rabbit : MonoBehaviour {
         // Score Update
         scoreText.text = "점수: " + scoreInfo.score.ToString() + "점";
 
+        backgroundVelocity = 2.5f + scoreInfo.score / 500f;
+        acc_y_text.text = backgroundVelocity.ToString();
     }
 
     // Rabbit 충돌 처리
@@ -246,7 +248,7 @@ public class Rabbit : MonoBehaviour {
     // Planet Control
     void PlanetInit() { // 처음 5개 만들고
         for (int i = 0; i < 5; i++) {
-            int rand = Random.Range(0, 10);
+            int rand = Random.Range(0, planetPrefabs.Length);
 
             float x_offset = Random.Range(-2, 2);
 
@@ -263,7 +265,7 @@ public class Rabbit : MonoBehaviour {
         for (int i = 0; i < 5; i++) {
             if (planets[i] != null && planets[i].transform.position.y < -5f) {
                 Destroy(planets[i]);
-                int rand = Random.Range(0, 10);
+                int rand = Random.Range(0, planetPrefabs.Length);
                 float x_offset = Random.Range(-2f, 2f);
                 int currLast = (i == 0 ? 4 : i - 1);
                 GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, planets[currLast].transform.position.y + 5f, 0f), Quaternion.Euler(90f, 0f, 0f));
