@@ -15,8 +15,9 @@ public class LoginController : MonoBehaviour
     public Button LoginDone;
     public TextMeshProUGUI loginResultText;
     public string status;
-    public int[] cookies;
     public int[] shop;
+    public int[] cookies;
+    public int money;
 
     // Start is called before the first frame update
     void Start()
@@ -54,30 +55,24 @@ public class LoginController : MonoBehaviour
                 
                 cookies = res.cookie;
                 shop = res.shop;
-               // PlayerPrefs.SetInt("cookie", cookies);
-                //PlayerPrefs.SetInt("shop", shop);
-                string strArr = "";
+                money = res.money;
+
                 string strArr2 = "";
-                for (int i=0; i<cookies.Length; i++)
-                {
-                    strArr = strArr + cookies[i];
-                    if(i<cookies.Length - 1)
-                    {
-                        strArr = strArr + ",";
-                    }
-                }
-                for (int i = 0; i < shop.Length; i++)
-                {
-                    strArr2 = strArr2 + shop[i];
-                    if (i < shop.Length - 1)
-                    {
-                        strArr2 = strArr2 + ",";
-                    }
-                }
-                Debug.Log(strArr);
-                Debug.Log(strArr2);
-                PlayerPrefs.SetString("cookies", strArr);
-                PlayerPrefs.SetString("shop", strArr2);
+                PlayerPrefs.SetInt("cookie1", cookies[0]);
+                PlayerPrefs.SetInt("cookie2", cookies[1]);
+                PlayerPrefs.SetInt("cookie3", cookies[2]);
+                PlayerPrefs.SetInt("cookie4", cookies[3]);
+                PlayerPrefs.SetInt("shop1", shop[0]);
+                PlayerPrefs.SetInt("shop2", shop[1]);
+                PlayerPrefs.SetInt("shop3", shop[2]);
+                PlayerPrefs.SetInt("shop4", shop[3]);
+                PlayerPrefs.SetInt("shop5", shop[4]);
+                PlayerPrefs.SetInt("shop6", shop[5]);
+                PlayerPrefs.SetInt("money", money);
+
+                //Debug.Log(strArr2);
+                Debug.Log(cookies);
+                //PlayerPrefs.SetString("shop", strArr2);
 
 
                 Debug.Log(shop[0]);
@@ -86,7 +81,7 @@ public class LoginController : MonoBehaviour
             }
             else if (response == "none")
             {
-                loginResultText.text = "���̵� ��й�ȣ�� ��ġ���� �ʽ��ϴ�.";
+                loginResultText.text = "일치하는 아이디, 비밀번호가 없습니다.";
             }
         }));
     }
