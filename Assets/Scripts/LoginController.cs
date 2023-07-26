@@ -16,8 +16,9 @@ public class LoginController : MonoBehaviour
     public Button LoginDone;
     public TextMeshProUGUI loginResultText;
     public string status;
-    public int[] cookies;
     public int[] shop;
+    public int[] cookies;
+    public int money;
 
     // Start is called before the first frame update
     void Start()
@@ -52,17 +53,36 @@ public class LoginController : MonoBehaviour
             if (status == "success")
             {
                 PlayerPrefs.SetString("id", id);
+                
                 cookies = res.cookie;
                 shop = res.shop;
                 PlayerPrefs.SetInt("score", res.score);
-                Debug.Log(cookies[0]);
+                money = res.money;
+
+                string strArr2 = "";
+                PlayerPrefs.SetInt("cookie1", cookies[0]);
+                PlayerPrefs.SetInt("cookie2", cookies[1]);
+                PlayerPrefs.SetInt("cookie3", cookies[2]);
+                PlayerPrefs.SetInt("cookie4", cookies[3]);
+                PlayerPrefs.SetInt("shop1", shop[0]);
+                PlayerPrefs.SetInt("shop2", shop[1]);
+                PlayerPrefs.SetInt("shop3", shop[2]);
+                PlayerPrefs.SetInt("shop4", shop[3]);
+                PlayerPrefs.SetInt("shop5", shop[4]);
+                PlayerPrefs.SetInt("shop6", shop[5]);
+                PlayerPrefs.SetInt("money", money);
+
+                //Debug.Log(strArr2);
+                Debug.Log(cookies);
+                //PlayerPrefs.SetString("shop", strArr2);
+
                 Debug.Log(shop[0]);
                 GetCookieData(id);
                 SceneManager.LoadScene("mainScene");
             }
             else if (response == "none")
             {
-                loginResultText.text = "���̵� ��й�ȣ�� ��ġ���� �ʽ��ϴ�.";
+                loginResultText.text = "일치하는 아이디, 비밀번호가 없습니다.";
             }
         }));
     }
