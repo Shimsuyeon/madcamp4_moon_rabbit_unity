@@ -15,15 +15,45 @@ EditorBuildSettings:
     path: Assets/Scenes/mainScene.unity
     guid: 06cb17b968fb1f144aaf20097120ef41
   - enabled: 1
-    path: Assets/Scenes/shopScene.unity
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/shopScene.unity"
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/MoonRabbit.unity
     guid: 90a830a60c498144d87c30154d2c9bc8
   - enabled: 1
-    path: Assets/Scenes/bakingScene.unity
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/bakingScene.unity"
     guid: 08bd1683f370eaa4c8b15b751c5da1f9
   - enabled: 1
-    path: Assets/Scenes/cellcookieScene.unity
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/cellcookieScene.unity"
     guid: efd887a9b25b2534d9206be36c854558
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uBB3C\uBCD1/mulbakingScene.unity"
+    guid: 7fd5ffe02775fc04f837f75da5507779
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC0AC\uC790/sabakingScene.unity"
+    guid: a942080f291b77649990b3abcbfff53e
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC591/yabakingScene.unity"
+    guid: 1b32090a4c060c44fb65842057ff2ccd
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC5FC\uC18C/yumbakingScene.unity"
+    guid: e29a099f121d8be4f8aa589b0b44352e
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uCC98\uB140/chubakingScene.unity"
+    guid: 7ec091770a5e9f04ea09148e1f4c7bf5
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uBB3C\uBCD1/mulcellcookieScene.unity"
+    guid: ed0e60427589fdb489ee12128cfa45ab
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC0AC\uC790/sacellcookieScene.unity"
+    guid: 6c2766e7d5703a54b8a95bc3da938f38
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC591/yacellcookieScene.unity"
+    guid: 338358e0565696340a99a310b1a66244
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uC5FC\uC18C/yumcellcookieScene.unity"
+    guid: 28788ab8733fee34ea86b7f206c96ba8
+  - enabled: 1
+    path: "Assets/Scenes/\uCFE0\uD0A4\uAC00\uAC8C/\uCC98\uB140/chucellcookieScene.unity"
+    guid: 8492996489de4ce4685928374f7c5883
   m_configObjects: {}

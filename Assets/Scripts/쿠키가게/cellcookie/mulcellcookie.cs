@@ -7,30 +7,26 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.Text;
-public class makecookie : MonoBehaviour
+public class mulcellcookie : MonoBehaviour
 {
     string id;
-    public int[] cookies = new int[4]; // Initialize the cookies array with size 4
     public int[] shop = new int[6];
-    public Button sendcookie;
-
+    public int money;
+    public Button celllcookie;
+    public TextMeshProUGUI moneyy;
     // Start is called before the first frame update
     void Start()
     {
-        cookies[0] = PlayerPrefs.GetInt("cookie1", 0);
-        cookies[1] = PlayerPrefs.GetInt("cookie2", 0);
-        cookies[2] = PlayerPrefs.GetInt("cookie3", 0);
-        cookies[3] = PlayerPrefs.GetInt("cookie4", 0);
         shop[0] = PlayerPrefs.GetInt("shop1", 0);
         shop[1] = PlayerPrefs.GetInt("shop2", 0);
         shop[2] = PlayerPrefs.GetInt("shop3", 0);
         shop[3] = PlayerPrefs.GetInt("shop4", 0);
         shop[4] = PlayerPrefs.GetInt("shop5", 0);
         shop[5] = PlayerPrefs.GetInt("shop6", 0);
-
-
+        money = PlayerPrefs.GetInt("money", 0);
+        moneyy.text = PlayerPrefs.GetInt("money", 0).ToString();
         id = PlayerPrefs.GetString("id");
-        sendcookie.onClick.AddListener(() => UpdateCookieData(id));
+        celllcookie.onClick.AddListener(() => UpdateCellData(id));
     }
 
     // Update is called once per frame
@@ -38,38 +34,27 @@ public class makecookie : MonoBehaviour
     {
         
     }
-
-    // UpdateCookie
-    void UpdateCookieData(string id)
+    void UpdateCellData(string id)
     {
-        var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/make");
-        var req = new Protocols.Packets.req_MakeCookie();
+        var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/cell");
+        var req = new Protocols.Packets.req_cellCookies();
         req.id = id;
 
-        cookies[0] -= 2;
-        cookies[1] -= 3;
-        cookies[2] -= 5;
-        cookies[3] -= 3;
-        shop[0] = 1;
-        
-        PlayerPrefs.SetInt("cookie1", cookies[0]);
-        PlayerPrefs.SetInt("cookie2", cookies[1]);
-        PlayerPrefs.SetInt("cookie3", cookies[2]);
-        PlayerPrefs.SetInt("cookie4", cookies[3]);
-        PlayerPrefs.SetInt("shop1", shop[0]);
-        req.cookie = cookies;
+        shop[1] = 0;
+        money += 15;
+        PlayerPrefs.SetInt("shop2", shop[1]);
+        PlayerPrefs.SetInt("money", money);
+        moneyy.text = money.ToString();
         req.shop = shop;
+        req.money = money;
         StartCoroutine(UpdateCookieById(url, JsonConvert.SerializeObject(req), (response) => {
-        //var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
+            //var res = JsonConvert.DeserializeObject<Protocols.Packets.res_GetCookie>(response);
             // cookies = res.cookie;
 
-            Debug.LogFormat("Cookie Updated {0}, {1}, {2}, {3}", cookies[0], cookies[1], cookies[2], cookies[3]);
-            Debug.LogFormat("shop", shop[0],shop[1],shop[2],shop[3],shop[4],shop[5]);
-            SceneManager.LoadScene("shopScene");
+           SceneManager.LoadScene("shopScene");
 
         }));
     }
-
     public static IEnumerator UpdateCookieById(string url, string json, System.Action<string> callback)
     {
         var webRequest = new UnityWebRequest(url, "POST");
@@ -89,4 +74,5 @@ public class makecookie : MonoBehaviour
             callback(webRequest.downloadHandler.text);
         }
     }
+
 }
