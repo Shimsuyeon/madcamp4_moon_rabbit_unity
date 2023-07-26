@@ -205,3 +205,4 @@ MonoBehaviour:
   particlePrefab: {fileID: 2949260587590792924, guid: e03d3ece61a1d3e42aed755462a80bb4, type: 3}
   cookieType: 3
   cookieInfo: {fileID: 11400000, guid: d176831a414d64843b5efe0ec53a7848, type: 2}
+  scoreInfo: {fileID: 11400000, guid: 241f32207ed13d34da528e151fe51cd2, type: 2}

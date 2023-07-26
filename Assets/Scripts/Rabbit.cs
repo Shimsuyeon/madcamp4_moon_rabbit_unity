@@ -72,7 +72,14 @@ public class Rabbit : MonoBehaviour {
     float jumpFullTime;
     float jumpProgressTime;
     public Material[] jumpMaterials;
+    bool isSuperJumping = false;
+
+    // Score Management
+    public ScoreInfo scoreInfo;
+    public TMP_Text scoreText;
     
+    // Tracker
+    public GameObject tracker;
 
 
     void Start() {
@@ -84,15 +91,15 @@ public class Rabbit : MonoBehaviour {
         isJumpingText.text = "0";
 
         // Color gradient init
-        grad = new Gradient();
-        colorKeys = new GradientColorKey[3];
-        colorKeys[0].color = Color.green;
-        colorKeys[0].time = 0f;
-        colorKeys[1].color = Color.yellow;
-        colorKeys[1].time = 0.5f;
-        colorKeys[2].color = Color.red;
-        colorKeys[2].time = 1f;
-        grad.colorKeys = colorKeys;
+        // grad = new Gradient();
+        // colorKeys = new GradientColorKey[3];
+        // colorKeys[0].color = Color.green;
+        // colorKeys[0].time = 0f;
+        // colorKeys[1].color = Color.yellow;
+        // colorKeys[1].time = 0.5f;
+        // colorKeys[2].color = Color.red;
+        // colorKeys[2].time = 1f;
+        // grad.colorKeys = colorKeys;
 
         // Star Cookie init
         starCookies = new GameObject[15];
@@ -138,10 +145,10 @@ public class Rabbit : MonoBehaviour {
         if (slider != null) {
             fill += acc_y * Time.deltaTime * k;
             fill = (fill > 0f) ? (fill < 1f ? fill : 1f) : 0f;
-            acc_y_text.text = "acc_y: " + acc_y.ToString();
-            slider.value = fill;
-            Color sliderColor = grad.Evaluate(fill);
-            sliderBack.color = sliderColor;
+            // acc_y_text.text = "acc_y: " + acc_y.ToString();
+            slider.value = 1 - fill;
+            //Color sliderColor = grad.Evaluate(fill);
+            //sliderBack.color = sliderColor;
         }
 
         // Jump 
@@ -185,13 +192,37 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Jump Animation
-        if (isJumping && jumpFullTime > 1f) {
+        if (isJumping && jumpFullTime > 1f && jumpFullTime < 1.5f) {
             float ratio = jumpProgressTime / jumpFullTime;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 1.5f && jumpFullTime < 2f) {
+            float ratio = jumpProgressTime / jumpFullTime * 2;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 2f && jumpFullTime < 3f) {
+            float ratio = jumpProgressTime / jumpFullTime * 4;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 3f) {
+            float ratio = jumpProgressTime / jumpFullTime * 50;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
         }
 
+        // Score Update
+        scoreText.text = "점수: " + scoreInfo.score.ToString() + "점";
+
+        // Background Velocity Control
+        backgroundVelocity = !isSuperJumping ? 2.5f + scoreInfo.score / 500f : 5f;
+        acc_y_text.text = backgroundVelocity.ToString();
+
+        // Tracker Control
+        tracker.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     // Rabbit 충돌 처리
@@ -199,9 +230,25 @@ public class Rabbit : MonoBehaviour {
         if (collision.gameObject.CompareTag("ground")) {
             if(isJumping)
                 Debug.Log("Hit ground!!!");
-
+            scoreInfo.score += 5;
             isJumping = false;
+            isSuperJumping = false;
             isJumpingText.text = "0";
+        } else if (collision.gameObject.CompareTag("sun")) {
+            isSuperJumping = true;
+            backgroundVelocity = 5f;
+            scoreInfo.score += 100;
+            int jumpRand = Random.Range(3, 7);
+            jumpFullTime = 4.005f /4f * (float)jumpRand;
+            float jumpHeight = (jumpFullTime/2f)*(jumpFullTime/2f)*9.81f/2f;
+            jumpProgressTime = 0f;
+            float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
+
+            rb.AddForce(new Vector3(0f, 0f, -jumpSpeed), ForceMode.VelocityChange);
+            isJumping = true;
+            isJumpingText.text = "1";
+            Debug.Log("Super Jump!!!");
+            fill = 0;
         }
     }
 
@@ -229,11 +276,13 @@ public class Rabbit : MonoBehaviour {
     // Planet Control
     void PlanetInit() { // 처음 5개 만들고
         for (int i = 0; i < 5; i++) {
-            int rand = Random.Range(0, 10);
+            int rand = Random.Range(0, planetPrefabs.Length);
 
             float x_offset = Random.Range(-2, 2);
 
             GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, 5f * (i+1), 0f), Quaternion.Euler(90f, 0f, 0f));
+            float scale = Random.Range(1f, 2f);
+            planetPrefab.transform.localScale = new Vector3(scale, 0.001f, scale);
             planets[i] = planetPrefab;
             if (i > 0)
                 StarCookieSpawn(i, 5f*(i+1));
@@ -242,12 +291,14 @@ public class Rabbit : MonoBehaviour {
 
     void PlanetSpawn() { // 하나가 지나갈 때마다, 그걸 없애고 새로 스폰함
         for (int i = 0; i < 5; i++) {
-            if (planets[i] != null && planets[i].transform.position.y < -5f) {
+            if (planets[i] != null && planets[i].transform.position.y < -2f) {
                 Destroy(planets[i]);
-                int rand = Random.Range(0, 10);
+                int rand = Random.Range(0, planetPrefabs.Length);
                 float x_offset = Random.Range(-2f, 2f);
                 int currLast = (i == 0 ? 4 : i - 1);
                 GameObject planetPrefab = Instantiate(planetPrefabs[rand], new Vector3(x_offset, planets[currLast].transform.position.y + 5f, 0f), Quaternion.Euler(90f, 0f, 0f));
+                float scale = Random.Range(1f, 2f);
+                planetPrefab.transform.localScale = new Vector3(scale, 0.001f, scale);
                 planets[i] = planetPrefab;
                 StarCookieSpawn(i, planets[i].transform.position.y);
             }
@@ -293,6 +344,7 @@ public class Rabbit : MonoBehaviour {
 
         inGameUI.SetActive(false);
         gameOverUI.SetActive(true);
+        tracker.SetActive(false);
 
         cookie1Text.text = PlayerPrefs.GetInt("cookie1").ToString() + " + " + cookieInfo.starCookieEaten[0].ToString();
         cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString() + " + " + cookieInfo.starCookieEaten[1].ToString();
@@ -318,11 +370,6 @@ public class Rabbit : MonoBehaviour {
         cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString();
         cookie3Text.text = PlayerPrefs.GetInt("cookie3").ToString();
         cookie4Text.text = PlayerPrefs.GetInt("cookie4").ToString();
-
-        cookie1Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie2Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie3Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        cookie4Text.rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
     void BackToMoonButton() {
@@ -376,6 +423,7 @@ public class Rabbit : MonoBehaviour {
         // var url = string.Format("{0}/{1}", "http://localhost:3000", "api/cookie/update");
         var req = new Protocols.Packets.req_UpdateCookie();
         req.id = id;
+        req.score = scoreInfo.score;
         for (int i = 0; i < 4; i++) {
             cookies[i] += cookieInfo.starCookieEaten[i];
         }
