@@ -202,7 +202,12 @@ public class Rabbit : MonoBehaviour {
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
-        } else if (isJumping && jumpFullTime >= 2f) {
+        } else if (isJumping && jumpFullTime >= 2f && jumpFullTime < 3f) {
+            float ratio = jumpProgressTime / jumpFullTime * 4;
+            int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
+            rabbitRenderer.material = jumpMaterials[idx];
+            jumpProgressTime += Time.deltaTime;
+        } else if (isJumping && jumpFullTime >= 3f) {
             float ratio = jumpProgressTime / jumpFullTime * 50;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
@@ -233,7 +238,8 @@ public class Rabbit : MonoBehaviour {
             isSuperJumping = true;
             backgroundVelocity = 5f;
             scoreInfo.score += 100;
-            jumpFullTime = 4f;
+            int jumpRand = Random.Range(3, 7);
+            jumpFullTime = 4.005f /4f * (float)jumpRand;
             float jumpHeight = (jumpFullTime/2f)*(jumpFullTime/2f)*9.81f/2f;
             jumpProgressTime = 0f;
             float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
@@ -285,7 +291,7 @@ public class Rabbit : MonoBehaviour {
 
     void PlanetSpawn() { // 하나가 지나갈 때마다, 그걸 없애고 새로 스폰함
         for (int i = 0; i < 5; i++) {
-            if (planets[i] != null && planets[i].transform.position.y < -5f) {
+            if (planets[i] != null && planets[i].transform.position.y < -2f) {
                 Destroy(planets[i]);
                 int rand = Random.Range(0, planetPrefabs.Length);
                 float x_offset = Random.Range(-2f, 2f);
