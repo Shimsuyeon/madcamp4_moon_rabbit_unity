@@ -2666,6 +2666,16 @@ MonoBehaviour:
   rabbitRenderer: {fileID: 1449662418}
   planetPrefabs:
   - {fileID: 3715203343234758627, guid: b40d02a1c00e6644c9795ce8e1771f46, type: 3}
+  - {fileID: 7333008881647033662, guid: 5c74e9cb1c8fde3429132f4c483b6781, type: 3}
+  - {fileID: 7333008881647033662, guid: afaafab5156710b41ab1fc4d903fedcd, type: 3}
+  - {fileID: 7333008881647033662, guid: bdd4e0c68bda098408e7f1e436a85174, type: 3}
+  - {fileID: 7333008881647033662, guid: 745df3e76a45e7a46b61b0d37afe2676, type: 3}
+  - {fileID: 7333008881647033662, guid: ff54247e614ee7b47a96413c1aa3aff4, type: 3}
+  - {fileID: 7333008881647033662, guid: d1a00eb54c47fb644957ae8a3c60f010, type: 3}
+  - {fileID: 7333008881647033662, guid: 70df8d5e098372a439fe008822b7c311, type: 3}
+  - {fileID: 7333008881647033662, guid: e2d39416746af9a4b84c73e3a22705c6, type: 3}
+  - {fileID: 7333008881647033662, guid: 2bda286e82efddc45a875963a71f1f51, type: 3}
+  - {fileID: 7333008881647033662, guid: c56a9f04b8a283c429e40a4a4e0195ea, type: 3}
   backgroundVelocity: 2.5
   moon: {fileID: 1068027289}
   planets:
