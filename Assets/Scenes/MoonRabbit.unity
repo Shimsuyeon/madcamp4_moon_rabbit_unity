@@ -2689,6 +2689,7 @@ MonoBehaviour:
   - {fileID: 8826467562058866885, guid: 1e3570149a820864ca8e29ee021d9bb8, type: 3}
   - {fileID: 8826467562058866885, guid: 143e8a20df4dcf949b654359b53864ee, type: 3}
   - {fileID: 8826467562058866885, guid: 8f1a3dbf1f2c67a4e8ede6b1dd8e54fa, type: 3}
+  - {fileID: 1123331394079793840, guid: 0f63bdb91494c0d44af8a47ffe6801c5, type: 3}
   cookieInfo: {fileID: 11400000, guid: d176831a414d64843b5efe0ec53a7848, type: 2}
   cookies: 
   gameOverUI: {fileID: 2128839786}
@@ -2749,6 +2750,7 @@ MonoBehaviour:
   scoreInfo: {fileID: 11400000, guid: 241f32207ed13d34da528e151fe51cd2, type: 2}
   scoreText: {fileID: 527818047}
   tracker: {fileID: 27294579}
+  isMeetBlackHole: 0
 --- !u!1 &782628375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,7 +2808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: y''
+  m_text: v
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

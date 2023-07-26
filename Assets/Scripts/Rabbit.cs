@@ -81,6 +81,11 @@ public class Rabbit : MonoBehaviour {
     // Tracker
     public GameObject tracker;
 
+    // Black Hole
+    public bool isMeetBlackHole = false;
+    float shrinkProgress = 1;
+    public float rotationSpeed = 250f;
+
 
     void Start() {
         id = PlayerPrefs.GetString("id");
@@ -118,6 +123,15 @@ public class Rabbit : MonoBehaviour {
 
 
     void Update() {
+        if(isMeetBlackHole) {
+            transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+            transform.localScale = new Vector3(1/ shrinkProgress, 1 / shrinkProgress, 1 / shrinkProgress);
+            Vector3 oldPosition = transform.position;
+            // transform.position = new Vector3(oldPosition.x, oldPosition.y, 0f);
+            rb.velocity = new Vector3(0f, 0f, 0f);
+            shrinkProgress += 0.5f;
+        }
+
         if(isGameOver) return;
         
         amt1.text = (PlayerPrefs.GetInt("cookie1") + cookieInfo.starCookieEaten[0]).ToString();
@@ -185,7 +199,7 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Game Over
-        if (transform.position.z > 500f) {
+        if (transform.position.z > 200f || isMeetBlackHole) {
             GameOverUI();
             UpdateCookieData(id);
             isGameOver = true;
@@ -252,6 +266,12 @@ public class Rabbit : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("blackhole")) {
+            isMeetBlackHole = true;
+        }
+    }
+
     // 점프점프
     private void Jump() {
         if (!isJumping) {
@@ -309,12 +329,14 @@ public class Rabbit : MonoBehaviour {
     void StarCookieSpawn(int planetIdx, float baseY) { // baseY에서 -4 ~ -1 만큼 범위에서 0~3 개의 별을 스폰함
         int cnt = Random.Range(0, 4);
         for (int i = 0; i < cnt; i++) {
-            int rand = Random.Range(0, 4);
+            int rand = Random.Range(0, starCookiePrefabs.Length);
             float x_offset = Random.Range(-2f, 2f);
-            float y_offset = Random.Range(-4f, -1f);
-            GameObject starCookiePrefab = Instantiate(starCookiePrefabs[rand], new Vector3(x_offset, baseY + y_offset, 0f), Quaternion.Euler(0f, 0f, 0f));
+            float y_offset = (rand != starCookiePrefabs.Length - 1) ? Random.Range(-4f, -1f) : Random.Range(-3f, -2f);
+            GameObject starCookiePrefab = Instantiate(starCookiePrefabs[rand], new Vector3(x_offset, baseY + y_offset, 0.01f*rand), Quaternion.Euler(0f, 0f, 0f));
             starCookies[3*planetIdx + i] = starCookiePrefab;
-            starCookies[3*planetIdx + i].GetComponent<StarCookie>().cookieType = rand + 1;
+            if (rand != starCookiePrefabs.Length - 1) {
+                starCookies[3*planetIdx + i].GetComponent<StarCookie>().cookieType = rand + 1;
+            }
             starCookieStatus[3*planetIdx + i] = rand + 1;
         }
     }
