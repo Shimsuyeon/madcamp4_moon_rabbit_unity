@@ -72,11 +72,14 @@ public class Rabbit : MonoBehaviour {
     float jumpFullTime;
     float jumpProgressTime;
     public Material[] jumpMaterials;
+    bool isSuperJumping = false;
 
     // Score Management
     public ScoreInfo scoreInfo;
     public TMP_Text scoreText;
     
+    // Tracker
+    public GameObject tracker;
 
 
     void Start() {
@@ -200,7 +203,7 @@ public class Rabbit : MonoBehaviour {
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
         } else if (isJumping && jumpFullTime >= 2f) {
-            float ratio = jumpProgressTime / jumpFullTime * 3;
+            float ratio = jumpProgressTime / jumpFullTime * 50;
             int idx = ((int)(ratio * jumpMaterials.Length)) % jumpMaterials.Length;
             rabbitRenderer.material = jumpMaterials[idx];
             jumpProgressTime += Time.deltaTime;
@@ -209,8 +212,12 @@ public class Rabbit : MonoBehaviour {
         // Score Update
         scoreText.text = "점수: " + scoreInfo.score.ToString() + "점";
 
-        backgroundVelocity = 2.5f + scoreInfo.score / 500f;
+        // Background Velocity Control
+        backgroundVelocity = !isSuperJumping ? 2.5f + scoreInfo.score / 500f : 5f;
         acc_y_text.text = backgroundVelocity.ToString();
+
+        // Tracker Control
+        tracker.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     // Rabbit 충돌 처리
@@ -220,11 +227,14 @@ public class Rabbit : MonoBehaviour {
                 Debug.Log("Hit ground!!!");
             scoreInfo.score += 5;
             isJumping = false;
+            isSuperJumping = false;
             isJumpingText.text = "0";
         } else if (collision.gameObject.CompareTag("sun")) {
+            isSuperJumping = true;
+            backgroundVelocity = 5f;
             scoreInfo.score += 100;
-            float jumpHeight = 20;
-            jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
+            jumpFullTime = 4f;
+            float jumpHeight = (jumpFullTime/2f)*(jumpFullTime/2f)*9.81f/2f;
             jumpProgressTime = 0f;
             float jumpSpeed = Mathf.Sqrt(2 * 9.81f * jumpHeight);
 
@@ -328,6 +338,7 @@ public class Rabbit : MonoBehaviour {
 
         inGameUI.SetActive(false);
         gameOverUI.SetActive(true);
+        tracker.SetActive(false);
 
         cookie1Text.text = PlayerPrefs.GetInt("cookie1").ToString() + " + " + cookieInfo.starCookieEaten[0].ToString();
         cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString() + " + " + cookieInfo.starCookieEaten[1].ToString();

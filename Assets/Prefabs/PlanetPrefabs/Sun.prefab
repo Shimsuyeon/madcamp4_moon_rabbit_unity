@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8670955856500737409}
   - component: {fileID: 328531253933485347}
   - component: {fileID: 1393198262953670304}
+  - component: {fileID: -7594135274768665175}
   m_Layer: 0
   m_Name: Sun
   m_TagString: sun
@@ -107,6 +108,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &-7594135274768665175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715203343234758627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25651448dbca8d42853f7f00558df81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 2044978248724351573, guid: c8245152fd5c15d459475113e82cf400, type: 3}
 --- !u!1001 &831726778161769800
 PrefabInstance:
   m_ObjectHideFlags: 0
