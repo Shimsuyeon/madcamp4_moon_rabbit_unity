@@ -86,6 +86,13 @@ public class Rabbit : MonoBehaviour {
     float shrinkProgress = 1;
     public float rotationSpeed = 250f;
 
+    // Pause UI
+    public GameObject pauseUI;
+    public Button pauseButton;
+    public Button resumeButton;
+    public Button goToMainButton;
+    bool isPaused = false;
+
 
     void Start() {
         id = PlayerPrefs.GetString("id");
@@ -116,13 +123,21 @@ public class Rabbit : MonoBehaviour {
         // Planet init
         PlanetInit();
 
+        // Init Cookies
         cookies = new int[4];        
         GetCookieData(id);
+
+        // Pause UI
+        pauseButton.onClick.AddListener(PauseButtonListener);
+        resumeButton.onClick.AddListener(ResumeButtonListener);
+        goToMainButton.onClick.AddListener(GoToMainButtonListener);
 
     }
 
 
     void Update() {
+        if(isPaused) return;
+        
         if(isMeetBlackHole) {
             transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
             transform.localScale = new Vector3(1/ shrinkProgress, 1 / shrinkProgress, 1 / shrinkProgress);
@@ -166,7 +181,7 @@ public class Rabbit : MonoBehaviour {
         }
 
         // Jump 
-        if (acc_y < -0.5f && !isJumping && fill > 0.001f) {
+        if (acc_y < -0.25f && !isJumping && fill > 0.001f) {
             Jump();
         }
 
@@ -367,6 +382,8 @@ public class Rabbit : MonoBehaviour {
         inGameUI.SetActive(false);
         gameOverUI.SetActive(true);
         tracker.SetActive(false);
+        pauseUI.SetActive(false);
+        pauseButton.gameObject.SetActive(false);
 
         cookie1Text.text = PlayerPrefs.GetInt("cookie1").ToString() + " + " + cookieInfo.starCookieEaten[0].ToString();
         cookie2Text.text = PlayerPrefs.GetInt("cookie2").ToString() + " + " + cookieInfo.starCookieEaten[1].ToString();
@@ -480,6 +497,25 @@ public class Rabbit : MonoBehaviour {
             Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
             callback(webRequest.downloadHandler.text);
         }
+    }
+
+    // Pause UI
+    void PauseButtonListener() {
+        isPaused = true;
+        pauseButton.gameObject.SetActive(false);
+        pauseUI.SetActive(true);
+        inGameUI.SetActive(false);
+    }
+
+    void ResumeButtonListener() {
+        isPaused = false;
+        pauseButton.gameObject.SetActive(true);
+        pauseUI.SetActive(false);
+        inGameUI.SetActive(true);
+    }
+
+    void GoToMainButtonListener() {
+        SceneManager.LoadScene("mainScene");
     }
 }
 
