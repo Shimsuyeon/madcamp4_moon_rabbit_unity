@@ -21,17 +21,17 @@ public class mulcookiemake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] dataArr = PlayerPrefs.GetString("cookies").Split(','); // PlayerPrefs¿¡¼­ ºÒ·¯¿Â °ªÀ» Split ÇÔ¼ö¸¦ ÅëÇØ ¹®ÀÚ¿­ÀÇ ,·Î ±¸ºÐÇÏ¿© ¹è¿­¿¡ ÀúÀå
+        string[] dataArr = PlayerPrefs.GetString("cookies").Split(','); // PlayerPrefsï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Split ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ,ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        int[] number2 = new int[dataArr.Length]; // ¹®ÀÚ¿­ ¹è¿­ÀÇ Å©±â¸¸Å­ Á¤¼öÇü ¹è¿­ »ý¼º
+        int[] number2 = new int[dataArr.Length]; // ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ï¿½ï¿½ Å©ï¿½â¸¸Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½
 
         for (int i = 0; i < dataArr.Length; i++)
         {
-            number2[i] = System.Convert.ToInt32(dataArr[i]); // ¹®ÀÚ¿­ ÇüÅÂ·Î ÀúÀåµÈ °ªÀ» Á¤¼öÇüÀ¸·Î º¯È¯ÈÄ ÀúÀå
+            number2[i] = System.Convert.ToInt32(dataArr[i]); // ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             //havecookies[i] = number2[i];
             //Debug.Log($"havecookies[{i}]: {havecookies[i]}"); // Print the values for debugging
 
-            // ÄíÅ° Á¾·ù¿¡ µû¶ó TextMeshProUGUI ¿ä¼Ò¿¡ ÇØ´ç °ªÀ» Ç¥½Ã
+            // ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ TextMeshProUGUI ï¿½ï¿½Ò¿ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
             switch (i)
             {
                 case 0:
