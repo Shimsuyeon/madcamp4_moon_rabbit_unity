@@ -93,6 +93,13 @@ public class Rabbit : MonoBehaviour {
     public Button goToMainButton;
     bool isPaused = false;
 
+    // Audio
+    public AudioSource[] jumpAudio;
+    public AudioSource landingAudio;
+    public AudioSource sunAudio;
+    public AudioSource blackholeAudio;
+    public AudioSource cookieAudio;
+
 
     void Start() {
         id = PlayerPrefs.GetString("id");
@@ -263,6 +270,7 @@ public class Rabbit : MonoBehaviour {
             isJumping = false;
             isSuperJumping = false;
             isJumpingText.text = "0";
+            // landingAudio.Play();
         } else if (collision.gameObject.CompareTag("sun")) {
             isSuperJumping = true;
             backgroundVelocity = 5f;
@@ -278,18 +286,27 @@ public class Rabbit : MonoBehaviour {
             isJumpingText.text = "1";
             Debug.Log("Super Jump!!!");
             fill = 0;
+
+            sunAudio.Play();
+            
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("blackhole")) {
             isMeetBlackHole = true;
+            blackholeAudio.Play();
+        } else if (other.gameObject.CompareTag("cookie")) {
+            cookieAudio.Play();
         }
     }
 
     // 점프점프
     private void Jump() {
         if (!isJumping) {
+            int jumpAudioRand = Random.Range(0, jumpAudio.Length);
+            jumpAudio[jumpAudioRand].Play();
+
             float jumpHeight = 6 * fill;
             jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
             jumpProgressTime = 0f;
