@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SunScript : MonoBehaviour {
     public GameObject explosion;
-
-    void Start() {
-        
-    }
+    public float rotationSpeed = 250f;
 
     void Update() {
-        
+        if (gameObject.activeSelf) {
+            transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0);
+        }    
     }
 
     void OnCollisionEnter(Collision collision) {

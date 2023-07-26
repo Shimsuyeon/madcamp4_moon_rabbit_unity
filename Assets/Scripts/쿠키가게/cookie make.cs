@@ -21,16 +21,14 @@ public class cookiemake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-                    haveBlue.text = PlayerPrefs.GetInt("cookie1", 0).ToString();
-                    needBlue.text = "-2";
-                    haveYellow.text = PlayerPrefs.GetInt("cookie2", 0).ToString();
-                    needYellow.text = "-3";
-                    haveOrange.text = PlayerPrefs.GetInt("cookie3", 0).ToString();
-                    needOrange.text = "-5";
-                    haveRed.text = PlayerPrefs.GetInt("cookie4", 0).ToString();
-                    needRed.text = "-3";
-
+        haveBlue.text = PlayerPrefs.GetInt("cookie1", 0).ToString();
+        needBlue.text = "-2";
+        haveYellow.text = PlayerPrefs.GetInt("cookie2", 0).ToString();
+        needYellow.text = "-3";
+        haveOrange.text = PlayerPrefs.GetInt("cookie3", 0).ToString();
+        needOrange.text = "-5";
+        haveRed.text = PlayerPrefs.GetInt("cookie4", 0).ToString();
+        needRed.text = "-3";
     }
 
     // Update is called once per frame

@@ -8,6 +8,7 @@ TagManager:
   - cookie
   - rabbit
   - sun
+  - blackhole
   layers:
   - Default
   - TransparentFX
