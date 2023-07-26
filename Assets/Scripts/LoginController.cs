@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using System.Text;
+using System.Security.Cryptography;
 
 public class LoginController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class LoginController : MonoBehaviour
     public void OnloginButtonClicked()
     {
         string id = LoginId.text;
-        string password = LoginPw.text;
+        string password = GetSHA256Hash(LoginPw.text);
         PerformLogin(id, password);
     }
     // Update is called once per frame
@@ -55,6 +56,7 @@ public class LoginController : MonoBehaviour
                 
                 cookies = res.cookie;
                 shop = res.shop;
+                PlayerPrefs.SetInt("score", res.score);
                 money = res.money;
 
                 string strArr2 = "";
@@ -73,7 +75,6 @@ public class LoginController : MonoBehaviour
                 //Debug.Log(strArr2);
                 Debug.Log(cookies);
                 //PlayerPrefs.SetString("shop", strArr2);
-
 
                 Debug.Log(shop[0]);
                 GetCookieData(id);
@@ -150,5 +151,22 @@ public class LoginController : MonoBehaviour
     void delay()
     {
 
+    }
+
+    public static string GetSHA256Hash(string input)
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            // 입력 문자열을 바이트 배열로 변환
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // 바이트 배열을 16진수 문자열로 변환하여 반환
+            StringBuilder builder = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                builder.Append(b.ToString("x2"));
+            }
+            return builder.ToString();
+        }
     }
 }
