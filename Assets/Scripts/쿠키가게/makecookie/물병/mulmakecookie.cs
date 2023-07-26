@@ -14,6 +14,7 @@ public class mulmakecookie : MonoBehaviour
     public int[] shop = new int[6];
     public Button sendcookie;
     public TextMeshProUGUI nocookie;
+    public AudioSource purchaseAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +46,11 @@ public class mulmakecookie : MonoBehaviour
     {
         if (cookies[0] - 1 < 0 || cookies[1] - 2 < 0 || cookies[2] - 3 < 0 || cookies[3] - 2 < 0)
         {
-            nocookie.text = "ÄíÅ°°¡ ºÎÁ·ÇÕ´Ï´Ù";
+            nocookie.text = "ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½";
         }
         else
         {
+            purchaseAudio.Play();
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/make");
             var req = new Protocols.Packets.req_MakeCookie();
             req.id = id;
@@ -90,7 +92,7 @@ public class mulmakecookie : MonoBehaviour
         yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("³×Æ®¿öÅ© È¯°æÀÌ ¾ÈÁÁ¾Æ¼­ Åë½ÅÀ» ÇÒ¼ö ¾ø½À´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½Æ®ï¿½ï¿½Å© È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
         else
         {

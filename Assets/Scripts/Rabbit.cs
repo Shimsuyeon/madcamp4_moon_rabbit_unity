@@ -270,7 +270,7 @@ public class Rabbit : MonoBehaviour {
             isJumping = false;
             isSuperJumping = false;
             isJumpingText.text = "0";
-            // landingAudio.Play();
+            landingAudio.Play();
         } else if (collision.gameObject.CompareTag("sun")) {
             isSuperJumping = true;
             backgroundVelocity = 5f;
