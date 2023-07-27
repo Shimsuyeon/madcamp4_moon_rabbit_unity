@@ -15,6 +15,7 @@ public class yumcellcookie : MonoBehaviour
     public Button celllcookie;
     public TextMeshProUGUI moneyy;
     public AudioSource cellAudio;
+    public ToastController toastController;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class yumcellcookie : MonoBehaviour
     }
     void UpdateCellData(string id)
     {
+        toastController.ShowToastMessage("염소 쿠키 판매 완료!");
         cellAudio.Play();
         var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/cell");
         var req = new Protocols.Packets.req_cellCookies();
