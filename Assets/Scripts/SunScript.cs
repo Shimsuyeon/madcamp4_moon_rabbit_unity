@@ -6,6 +6,11 @@ public class SunScript : MonoBehaviour {
     public GameObject explosion;
     public float rotationSpeed = 250f;
 
+    void Start() {
+        int random = Random.Range(0, 2);
+        rotationSpeed = random==0 ? rotationSpeed : -rotationSpeed;
+    }
+
     void Update() {
         if (gameObject.activeSelf) {
             transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0);

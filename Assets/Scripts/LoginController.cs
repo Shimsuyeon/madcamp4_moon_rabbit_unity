@@ -19,7 +19,9 @@ public class LoginController : MonoBehaviour
     public int[] shop;
     public int[] cookies;
     public int money;
+    public ToastController toastController;
     public int[] cafe;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,7 @@ public class LoginController : MonoBehaviour
 
             if (status == "success")
             {
+                toastController.ShowToastMessage("로그인 성공");
                 PlayerPrefs.SetString("id", id);
                 
                 cookies = res.cookie;
@@ -84,10 +87,11 @@ public class LoginController : MonoBehaviour
                 GetCookieData(id);
                 SceneManager.LoadScene("mainScene");
             }
-            else if (response == "none")
-            {
-                loginResultText.text = "일치하는 아이디, 비밀번호가 없습니다.";
-            }
+            // else if (response == "none")
+            // {
+            //     toastController.ShowToastMessage("로그인 실패");
+            //     loginResultText.text = "일치하는 아이디, 비밀번호가 없습니다.";
+            // }
         }));
     }
 
@@ -112,7 +116,7 @@ public class LoginController : MonoBehaviour
 
     }
 
-    public static IEnumerator LoginUser(string url, string json, System.Action<string> callback)
+    public IEnumerator LoginUser(string url, string json, System.Action<string> callback)
     {
         var webRequest = new UnityWebRequest(url, "GET");
         var bodyRaw = Encoding.UTF8.GetBytes(json);
@@ -123,6 +127,8 @@ public class LoginController : MonoBehaviour
         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("��Ʈ��ũ ȯ���� �����Ƽ� ����� �Ҽ� �����ϴ�.");
+            toastController.ShowToastMessage("로그인 실패");
+            loginResultText.text = "일치하는 아이디, 비밀번호가 없습니다.";
         }
         else
         {
@@ -150,11 +156,6 @@ public class LoginController : MonoBehaviour
             Debug.LogFormat("{0}\n{1}\n{2}", webRequest.responseCode, webRequest.downloadHandler.data, webRequest.downloadHandler.text);
             callback(webRequest.downloadHandler.text);
         }
-    }
-
-    void delay()
-    {
-
     }
 
     public static string GetSHA256Hash(string input)
