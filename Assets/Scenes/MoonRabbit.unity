@@ -2988,7 +2988,6 @@ MonoBehaviour:
   fill: 0
   k: 1
   sliderBack: {fileID: 1268829223}
-  acc_y_text: {fileID: 782628377}
   inGameUI: {fileID: 894996102}
   amt1: {fileID: 40919616}
   amt2: {fileID: 1828601337}
@@ -3125,7 +3124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &782628376
 RectTransform:
   m_ObjectHideFlags: 0

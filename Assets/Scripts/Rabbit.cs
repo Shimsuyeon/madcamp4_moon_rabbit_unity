@@ -18,13 +18,12 @@ public class Rabbit : MonoBehaviour {
 
     // UI
     public Slider slider;
-
     public float fill = 0f;
     public float k = 1f;
     private Gradient grad;
     private GradientColorKey[] colorKeys;
     public Image sliderBack;
-    public TMP_Text acc_y_text;
+    // public TMP_Text acc_y_text;
     public GameObject inGameUI;
     public TMP_Text amt1;
     public TMP_Text amt2;
@@ -255,7 +254,7 @@ public class Rabbit : MonoBehaviour {
 
         // Background Velocity Control
         backgroundVelocity = !isSuperJumping ? 2.5f + scoreInfo.score / 500f : 5f;
-        acc_y_text.text = backgroundVelocity.ToString();
+        // acc_y_text.text = backgroundVelocity.ToString();
 
         // Tracker Control
         tracker.transform.position = new Vector3(transform.position.x, transform.position.y, 0);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 163022966912138930}
   - component: {fileID: 4729794989560629837}
   - component: {fileID: -903114297223132090}
+  - component: {fileID: -4482406792644565931}
   m_Layer: 0
   m_Name: Planet6
   m_TagString: ground
@@ -106,3 +107,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &-4482406792644565931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333008881647033662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81dba83a6f0be745955723a46a6af2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
