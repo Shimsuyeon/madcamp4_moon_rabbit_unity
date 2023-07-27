@@ -28,6 +28,7 @@ public class yacellcookie : MonoBehaviour
         moneyy.text = PlayerPrefs.GetInt("money", 0).ToString();
         id = PlayerPrefs.GetString("id");
         celllcookie.onClick.AddListener(() => UpdateCellData(id));
+        DontDestroyOnLoad(cellAudio);
     }
 
     // Update is called once per frame

@@ -33,6 +33,7 @@ public class yamakecookie : MonoBehaviour
 
         id = PlayerPrefs.GetString("id");
         sendcookie.onClick.AddListener(() => UpdateCookieData(id));
+        DontDestroyOnLoad(purchaseAudio);
     }
 
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class yamakecookie : MonoBehaviour
     {
         if (cookies[0] - 5 < 0 || cookies[1] - 5 < 0 || cookies[2] - 5 < 0 || cookies[3] - 5 < 0)
         {
-            nocookie.text = "��Ű�� �����մϴ�";
+            nocookie.text = "쿠키가 부족해요";
         }
         else
         {

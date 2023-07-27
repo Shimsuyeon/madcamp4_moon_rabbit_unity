@@ -28,6 +28,7 @@ public class sasacellcookie : MonoBehaviour
         moneyy.text = PlayerPrefs.GetInt("money", 0).ToString();
         id = PlayerPrefs.GetString("id");
         celllcookie.onClick.AddListener(() => UpdatesaCellData(id));
+        DontDestroyOnLoad(cellAudio);
     }
 
     // Update is called once per frame
