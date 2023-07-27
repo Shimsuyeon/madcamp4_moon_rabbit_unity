@@ -7,6 +7,8 @@
 
  게임 개요
  ---------
+<img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/e51edb7b-f559-41d2-917b-f3c2eae53ef4" width="150" height="150">
+ 
  *" 달에 사는 달토끼는 행성을 뛰어 다니며    
  별을 모아서 쿠키를 만들어요.   
  쿠키를 많이 팔아서 부자가 될 거예요! "*   
