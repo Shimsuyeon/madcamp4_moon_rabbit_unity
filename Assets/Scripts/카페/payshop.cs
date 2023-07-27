@@ -30,6 +30,10 @@ public class payshop : MonoBehaviour
     public int money;
     public int[] cafe = new int[3];
 
+
+    public AudioSource purchase;
+    public AudioSource cell;
+
     string id;
 
     // Start is called before the first frame update
@@ -106,6 +110,7 @@ public class payshop : MonoBehaviour
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
 
+            cell.Play();
             cafe[0] = 0;
             money += 25;
             PlayerPrefs.SetInt("cafe1", cafe[0]);
@@ -133,6 +138,7 @@ public class payshop : MonoBehaviour
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
 
+            purchase.Play();
             cafe[0] = 1;
             money -= 50;
             PlayerPrefs.SetInt("cafe1", cafe[0]);
@@ -172,7 +178,7 @@ public class payshop : MonoBehaviour
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cafe/cell");
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
-
+            cell.Play();
             cafe[1] = 0;
             money += 35;
             PlayerPrefs.SetInt("cafe2", cafe[1]);
@@ -199,7 +205,7 @@ public class payshop : MonoBehaviour
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cafe/buy");
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
-
+            purchase.Play();
             cafe[1] = 1;
             money -= 70;
             PlayerPrefs.SetInt("cafe2", cafe[1]);
@@ -236,7 +242,7 @@ public class payshop : MonoBehaviour
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cafe/cell");
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
-
+            cell.Play();
             cafe[2] = 0;
             money += 50;
             PlayerPrefs.SetInt("cafe3", cafe[2]);
@@ -264,7 +270,7 @@ public class payshop : MonoBehaviour
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cafe/buy");
             var req = new Protocols.Packets.req_buyCafe();
             req.id = id;
-
+            purchase.Play();
             cafe[2] = 1;
             money -= 100;
             PlayerPrefs.SetInt("cafe3", cafe[2]);
