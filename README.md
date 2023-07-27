@@ -4,6 +4,7 @@
  팀원: [심수연](https://github.com/Shimsuyeon), [김은수](https://github.com/EunsuKim03)   
  개발 환경: Unity, Node.js, MongoDB   
  개발 언어: C#, Javascript, Java   
+ 다운로드: https://drive.google.com/file/d/1cZPA6PU3lepuaNwn2Xy0iRpjjzhiIg2r/view?usp=sharing
 
  게임 개요
  ---------
