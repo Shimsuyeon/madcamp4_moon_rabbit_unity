@@ -39,8 +39,10 @@
   - 점수에 비례하여 토끼의 이동 속도가 증가함
   - 일시정지 UI: 좌측 상단 일시정지 버튼 누를 시 게임을 잠시 멈춤
   - 게임오버 UI: 게임 오버시에 나타나며 그 게임의 점수와 획득한 별쿠키를 종류별로 표시
-  <p align="center"><img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/01425bba-596c-4ed0-85c7-e10f3aa4a524" width="300" height="600">
-  <p align="center"><img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/000f206b-e437-4878-9b4a-6c8035635ce5" width="300" height="600">
+  <p align="center">
+   <img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/01425bba-596c-4ed0-85c7-e10f3aa4a524" width="300" height="600">
+   <img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/000f206b-e437-4878-9b4a-6c8035635ce5" width="300" height="600">
+  </p>
 - 쿠키 상점
   - 쿠키는 종류가 6개가 있으며 각각 필요한 별쿠키의 양이 다름
   - 각 쿠키 터치 시, 쿠키의 이름, 설명과 구매 화면이 뜨며 하단 버튼을 통해 구매 가능, 별쿠키가 부족할 시에는 살 수 없음
