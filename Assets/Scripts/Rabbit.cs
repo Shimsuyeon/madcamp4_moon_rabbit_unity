@@ -18,13 +18,12 @@ public class Rabbit : MonoBehaviour {
 
     // UI
     public Slider slider;
-
     public float fill = 0f;
     public float k = 1f;
     private Gradient grad;
     private GradientColorKey[] colorKeys;
     public Image sliderBack;
-    public TMP_Text acc_y_text;
+    // public TMP_Text acc_y_text;
     public GameObject inGameUI;
     public TMP_Text amt1;
     public TMP_Text amt2;
@@ -92,6 +91,13 @@ public class Rabbit : MonoBehaviour {
     public Button resumeButton;
     public Button goToMainButton;
     bool isPaused = false;
+
+    // Audio
+    public AudioSource[] jumpAudio;
+    public AudioSource landingAudio;
+    public AudioSource sunAudio;
+    public AudioSource blackholeAudio;
+    public AudioSource cookieAudio;
 
 
     void Start() {
@@ -248,7 +254,7 @@ public class Rabbit : MonoBehaviour {
 
         // Background Velocity Control
         backgroundVelocity = !isSuperJumping ? 2.5f + scoreInfo.score / 500f : 5f;
-        acc_y_text.text = backgroundVelocity.ToString();
+        // acc_y_text.text = backgroundVelocity.ToString();
 
         // Tracker Control
         tracker.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
@@ -263,6 +269,7 @@ public class Rabbit : MonoBehaviour {
             isJumping = false;
             isSuperJumping = false;
             isJumpingText.text = "0";
+            landingAudio.Play();
         } else if (collision.gameObject.CompareTag("sun")) {
             isSuperJumping = true;
             backgroundVelocity = 5f;
@@ -278,18 +285,27 @@ public class Rabbit : MonoBehaviour {
             isJumpingText.text = "1";
             Debug.Log("Super Jump!!!");
             fill = 0;
+
+            sunAudio.Play();
+            
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("blackhole")) {
             isMeetBlackHole = true;
+            blackholeAudio.Play();
+        } else if (other.gameObject.CompareTag("cookie")) {
+            cookieAudio.Play();
         }
     }
 
     // 점프점프
     private void Jump() {
         if (!isJumping) {
+            int jumpAudioRand = Random.Range(0, jumpAudio.Length);
+            jumpAudio[jumpAudioRand].Play();
+
             float jumpHeight = 6 * fill;
             jumpFullTime = 2 * Mathf.Sqrt(2 * jumpHeight / 9.81f);
             jumpProgressTime = 0f;

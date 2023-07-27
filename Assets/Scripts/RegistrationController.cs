@@ -14,6 +14,7 @@ public class RegistrationController : MonoBehaviour
     public TMP_InputField registerPw;
     public Button registerDone;
     public TextMeshProUGUI registerResultText;
+    public ToastController toastController;
 
 
     private const string apiUrl = "http://34.64.98.2:3000/api/join"; // Replace with your server URL
@@ -48,6 +49,7 @@ public class RegistrationController : MonoBehaviour
             if (response == "success")
             {
                 Debug.Log("login ok");
+                toastController.ShowToastMessage("회원가입 성공");
                 SceneManager.LoadScene("loginScene");
             }
             else if (response=="exist")
