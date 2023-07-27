@@ -15,6 +15,7 @@ public class makecookie : MonoBehaviour
     public Button sendcookie;
     public TextMeshProUGUI nocookie;
     public AudioSource purchaseAudio;
+    public ToastController toastController;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,7 @@ public class makecookie : MonoBehaviour
         }
         else
         {
+            toastController.ShowToastMessage("천칭 쿠키 구매 완료");
             purchaseAudio.Play();
             var url = string.Format("{0}/{1}", "http://34.64.98.2:3000", "api/cookie/make");
             var req = new Protocols.Packets.req_MakeCookie();
