@@ -41,7 +41,7 @@ public class yacellcookie : MonoBehaviour
         req.id = id;
 
         shop[5] = 0;
-        money += 20;
+        money += 35;
         PlayerPrefs.SetInt("shop6", shop[5]);
         PlayerPrefs.SetInt("money", money);
         moneyy.text = money.ToString();

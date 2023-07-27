@@ -15,6 +15,7 @@ public class Protocols
             public int[] cookie;
             public int score;
             public int money;
+            public int[] cafe;
         }
 
 
@@ -61,6 +62,14 @@ public class Protocols
             public string id;
             public int[] shop;
             public int money;
+        }
+
+
+        public class req_buyCafe
+        {
+            public int[] cafe;
+            public int money;
+            public string id;
         }
     }
 }
