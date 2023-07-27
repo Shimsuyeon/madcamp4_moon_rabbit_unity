@@ -7,6 +7,7 @@ using System.Text;
 public class getmoney : MonoBehaviour
 {
     public TextMeshProUGUI moneyy;
+   
     // Start is called before the first frame update
     void Start()
     {
