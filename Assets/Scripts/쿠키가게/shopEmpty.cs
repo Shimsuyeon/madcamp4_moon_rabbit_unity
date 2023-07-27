@@ -10,9 +10,6 @@ public class shopEmpty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] dataArr = PlayerPrefs.GetString("shop").Split(','); // PlayerPrefs에서 불러온 값을 Split 함수를 통해 문자열의 ,로 구분하여 배열에 저장
-
-        int[] number2 = new int[dataArr.Length]; // 문자열 배열의 크기만큼 정수형 배열 생성
         if (PlayerPrefs.GetInt("shop1", 0) == 0)
         {
             cookieImages[0].gameObject.SetActive(true);

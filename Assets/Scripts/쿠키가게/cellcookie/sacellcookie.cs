@@ -46,7 +46,7 @@ public class sasacellcookie : MonoBehaviour
         req.id = id;
 
         shop[3] = 0;
-        money += 20;
+        money += 25;
         PlayerPrefs.SetInt("shop4", shop[3]);
         PlayerPrefs.SetInt("money", money);
         moneyy.text = money.ToString();

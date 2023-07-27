@@ -20,12 +20,15 @@ public class LoginController : MonoBehaviour
     public int[] cookies;
     public int money;
     public ToastController toastController;
+    public int[] cafe;
 
     // Start is called before the first frame update
     void Start()
     {
         LoginDone.onClick.AddListener(OnloginButtonClicked);
         cookies = new int[4];
+        cafe = new int[3];
+        shop = new int[6];
     }
     public void OnloginButtonClicked()
     {
@@ -60,8 +63,7 @@ public class LoginController : MonoBehaviour
                 shop = res.shop;
                 PlayerPrefs.SetInt("score", res.score);
                 money = res.money;
-
-                string strArr2 = "";
+                cafe = res.cafe;
                 PlayerPrefs.SetInt("cookie1", cookies[0]);
                 PlayerPrefs.SetInt("cookie2", cookies[1]);
                 PlayerPrefs.SetInt("cookie3", cookies[2]);
@@ -73,10 +75,13 @@ public class LoginController : MonoBehaviour
                 PlayerPrefs.SetInt("shop5", shop[4]);
                 PlayerPrefs.SetInt("shop6", shop[5]);
                 PlayerPrefs.SetInt("money", money);
+                PlayerPrefs.SetInt("cafe1", cafe[0]);
+                PlayerPrefs.SetInt("cafe2", cafe[1]);
+                PlayerPrefs.SetInt("cafe3", cafe[2]);
 
-                //Debug.Log(strArr2);
                 Debug.Log(cookies);
-                //PlayerPrefs.SetString("shop", strArr2);
+                Debug.Log(shop);
+                Debug.Log(cookies);
 
                 Debug.Log(shop[0]);
                 GetCookieData(id);
