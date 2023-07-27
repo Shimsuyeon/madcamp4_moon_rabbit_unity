@@ -60,6 +60,6 @@
   - 토끼의 카페를 3D 그래픽으로 보여줌
   - 토끼는 쿠키를 판매하여 얻은 별로 가구를 구매하여 카페를 꾸밀 수 있음
   - 각 가구는 에셋 기본 기능으로 터치하면 애니메이션이나 상호 작용을 보여줌
-<p align="center"><img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/109589438/a5d84dcd-69dc-4883-b726-183b1cdb4100" width="300" height="600">
+<p align="center"><img src="https://github.com/Shimsuyeon/madcamp4_moon_rabbit_unity/assets/84979352/654f474c-f534-44d6-a018-3011192688c9" width="300" height="600">
  
  
